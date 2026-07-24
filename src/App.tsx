@@ -24,6 +24,7 @@ import {
 export default function App() {
   const pathname = window.location.pathname;
   const metadata = getRouteMetadata(pathname);
+  const developmentPreviewsEnabled = import.meta.env.DEV;
 
   useEffect(() => {
     applyRouteMetadata(metadata, pathname);
@@ -53,19 +54,19 @@ export default function App() {
     return <TemporaryAccessPage pathname={pathname} />;
   }
 
-  if (pathname === developmentRoutes.foundation) {
+  if (developmentPreviewsEnabled && pathname === developmentRoutes.foundation) {
     return <FoundationPreview />;
   }
 
-  if (pathname === developmentRoutes.foundationComponents) {
+  if (developmentPreviewsEnabled && pathname === developmentRoutes.foundationComponents) {
     return <ComponentShowcase />;
   }
 
-  if (pathname === developmentRoutes.foundationPortal) {
+  if (developmentPreviewsEnabled && pathname === developmentRoutes.foundationPortal) {
     return <PortalPreview />;
   }
 
-  if (isPatientPortalPath(pathname)) {
+  if (developmentPreviewsEnabled && isPatientPortalPath(pathname)) {
     return <PatientPortalRouter pathname={pathname} />;
   }
 
