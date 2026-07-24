@@ -1,25 +1,32 @@
 import { useState } from "react";
-import { Button } from "../ui";
+import { futureRoutes, primaryNavigation } from "../../lib/routes";
+import { Button, Drawer, LinkButton } from "../ui";
 import "./PublicNav.css";
 
-const navItems = ["Services", "For Providers", "Pricing", "FAQ"];
+export interface PublicNavProps {
+  currentPathname?: string;
+}
 
-export function PublicNav() {
+export function PublicNav({ currentPathname = window.location.pathname }: PublicNavProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const closeMobileMenu = () => setMobileOpen(false);
 
   return (
     <header className="public-nav">
       <a className="public-nav__brand" href="/" aria-label="Plunge Care home">
         <span className="public-nav__mark" aria-hidden="true">
-          PC
+          P
         </span>
-        <span>Plunge Care</span>
+        <span className="public-nav__wordmark">
+          <span>Plunge</span>
+          <span>Care</span>
+        </span>
       </a>
       <Button
-        aria-controls="public-mobile-navigation"
+        aria-controls="public-mobile-menu"
         aria-expanded={mobileOpen}
         className="public-nav__menu"
-        onClick={() => setMobileOpen((open) => !open)}
+        onClick={() => setMobileOpen(true)}
         variant="secondary"
       >
         Menu
@@ -27,19 +34,59 @@ export function PublicNav() {
       <nav
         aria-label="Primary navigation"
         className="public-nav__links"
-        data-open={mobileOpen}
-        id="public-mobile-navigation"
       >
-        {navItems.map((item) => (
-          <a href={`#${item.toLowerCase().replace(/\s+/g, "-")}`} key={item}>
-            {item}
+        {primaryNavigation.map((item) => (
+          <a
+            aria-current={currentPathname === item.href ? "page" : undefined}
+            href={item.href}
+            key={item.href}
+          >
+            {item.label}
           </a>
         ))}
       </nav>
       <div className="public-nav__actions">
-        <Button variant="ghost">Sign in</Button>
-        <Button>Start care</Button>
+        <LinkButton href={futureRoutes.signIn} variant="ghost">
+          Sign in
+        </LinkButton>
+        <LinkButton href={futureRoutes.startCare}>Start care</LinkButton>
       </div>
+      <Drawer
+        description="Public website navigation links. Clinical and payment workflows are not available from this menu."
+        id="public-mobile-menu"
+        isOpen={mobileOpen}
+        onClose={closeMobileMenu}
+        position="right"
+        title="Menu"
+      >
+        <nav aria-label="Mobile primary navigation" className="public-nav__drawer-links">
+          <a
+            aria-current={currentPathname === "/" ? "page" : undefined}
+            href="/"
+            onClick={closeMobileMenu}
+          >
+            Home
+          </a>
+          {primaryNavigation.map((item) => (
+            <a
+              aria-current={currentPathname === item.href ? "page" : undefined}
+              href={item.href}
+              key={item.href}
+              onClick={closeMobileMenu}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        <div className="public-nav__drawer-actions">
+          <LinkButton fullWidth href={futureRoutes.signIn} onClick={closeMobileMenu} variant="secondary">
+            Sign in
+          </LinkButton>
+          <LinkButton fullWidth href={futureRoutes.startCare} onClick={closeMobileMenu}>
+            Start care
+          </LinkButton>
+        </div>
+      </Drawer>
     </header>
   );
 }

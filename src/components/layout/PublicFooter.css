@@ -1,0 +1,119 @@
+.public-footer {
+  background: var(--color-brand-navy);
+  color: var(--color-text-inverse);
+  padding: var(--space-12) clamp(var(--space-4), 4vw, var(--space-10)) var(--space-8);
+}
+
+.public-footer__inner {
+  display: grid;
+  gap: var(--space-8);
+  margin-inline: auto;
+  max-width: var(--content-width);
+}
+
+.public-footer__brand {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 36rem;
+}
+
+.public-footer__brand p,
+.public-footer__copyright {
+  color: rgb(255 255 255 / 78%);
+  margin: 0;
+}
+
+.public-footer__wordmark {
+  align-items: center;
+  color: var(--color-text-inverse);
+  display: inline-flex;
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  gap: var(--space-2);
+  min-height: 44px;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.public-footer__wordmark span:last-child span:last-child {
+  color: var(--color-surface-mint);
+}
+
+.public-footer__mark {
+  align-items: center;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  color: var(--color-brand-navy);
+  display: inline-flex;
+  height: 2.25rem;
+  justify-content: center;
+  width: 2.25rem;
+}
+
+.public-footer__groups {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.public-footer__group h2 {
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-tight);
+  margin: 0 0 var(--space-3);
+}
+
+.public-footer__group ul {
+  display: grid;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.public-footer__group li {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.public-footer__group a {
+  align-items: center;
+  border-radius: var(--radius-sm);
+  color: rgb(255 255 255 / 84%);
+  display: inline-flex;
+  min-height: 44px;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.public-footer__group a:hover {
+  color: var(--color-text-inverse);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.public-footer__group span {
+  color: rgb(255 255 255 / 64%);
+  font-size: var(--font-size-xs);
+}
+
+.public-footer__copyright {
+  border-top: 1px solid rgb(255 255 255 / 16%);
+  padding-top: var(--space-5);
+}
+
+@media (max-width: 860px) {
+  .public-footer__groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .public-footer {
+    padding-inline: var(--space-4);
+  }
+
+  .public-footer__groups {
+    grid-template-columns: 1fr;
+  }
+}

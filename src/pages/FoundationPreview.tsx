@@ -1,6 +1,6 @@
 import { CareStatusCard } from "../components/healthcare";
 import { PublicLayout } from "../components/layout";
-import { Button, Card, StatusBadge } from "../components/ui";
+import { Button, Card, LinkButton, StatusBadge } from "../components/ui";
 import "./FoundationPreview.css";
 
 const statuses = [
@@ -61,22 +61,12 @@ export function FoundationPreview() {
               <Button variant="ghost">Ghost action</Button>
               <Button variant="danger">Danger action</Button>
               <Button disabled>Disabled action</Button>
-              <Button
-                onClick={() => {
-                  window.location.href = "/foundation/components";
-                }}
-                variant="outline"
-              >
+              <LinkButton href="/foundation/components" variant="outline">
                 Component showcase
-              </Button>
-              <Button
-                onClick={() => {
-                  window.location.href = "/foundation/portal";
-                }}
-                variant="link"
-              >
+              </LinkButton>
+              <LinkButton href="/foundation/portal" variant="link">
                 Portal shell preview
-              </Button>
+              </LinkButton>
             </div>
           </section>
 

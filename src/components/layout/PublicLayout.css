@@ -4,24 +4,18 @@
 }
 
 .public-layout__main {
-  margin-inline: auto;
-  max-width: var(--content-width);
   min-width: 0;
-  padding: clamp(var(--space-4), 4vw, var(--space-10));
+  outline: none;
 }
 
-.public-layout__footer {
-  background: var(--color-brand-navy);
-  color: var(--color-text-inverse);
-  padding: var(--space-8) clamp(var(--space-4), 4vw, var(--space-10));
-}
-
-.public-layout__footer > div {
+.public-layout__breadcrumbs {
   margin-inline: auto;
   max-width: var(--content-width);
+  padding: var(--space-4) clamp(var(--space-4), 4vw, var(--space-10)) 0;
 }
 
-.public-layout__footer p {
-  color: rgb(255 255 255 / 78%);
-  margin-bottom: 0;
+@media (max-width: 640px) {
+  .public-layout__breadcrumbs {
+    padding-inline: var(--space-4);
+  }
 }
