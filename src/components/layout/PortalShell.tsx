@@ -5,6 +5,7 @@ import "./PortalShell.css";
 export type PortalRole = "patient" | "provider" | "admin";
 
 export interface PortalNavItem {
+  activeWhen?: readonly string[];
   href: string;
   label: string;
 }
@@ -19,14 +20,15 @@ const navByRole: Record<PortalRole, PortalNavItem[]> = {
   ],
   patient: [
     { href: "#overview", label: "Overview" },
-    { href: "#care-requests", label: "Care requests" },
+    { href: "#care-requests", label: "Care Requests" },
     { href: "#messages", label: "Messages" },
-    { href: "#documents", label: "Documents" },
+    { href: "#my-chart", label: "My Chart" },
+    { href: "#billing", label: "Billing & Payments" },
     { href: "#settings", label: "Settings" },
   ],
   provider: [
     { href: "#overview", label: "Overview" },
-    { href: "#queue", label: "Care queue" },
+    { href: "#queue", label: "Care Queue" },
     { href: "#patients", label: "Patients" },
     { href: "#messages", label: "Messages" },
     { href: "#settings", label: "Settings" },
@@ -34,17 +36,46 @@ const navByRole: Record<PortalRole, PortalNavItem[]> = {
 };
 
 export interface PortalShellProps {
+  accountDescription?: string;
+  accountInitials?: string;
+  accountName?: string;
+  brandHref?: string;
   children: ReactNode;
-  navItems?: PortalNavItem[];
+  currentPathname?: string;
+  eyebrow?: string;
+  navItems?: readonly PortalNavItem[];
   pageTitle: string;
   role?: PortalRole;
 }
 
-function PortalNavigation({ items }: { items: PortalNavItem[] }) {
+function isNavItemActive(item: PortalNavItem, currentPathname: string | undefined, index: number) {
+  if (!currentPathname) return index === 0;
+  if (currentPathname === item.href) return true;
+  if (item.href === "/patient") return false;
+
+  return item.activeWhen?.some((pathname) => (
+    currentPathname === pathname || currentPathname.startsWith(`${pathname}/`)
+  )) ?? false;
+}
+
+function PortalNavigation({
+  currentPathname,
+  items,
+  onNavigate,
+}: {
+  currentPathname?: string;
+  items: readonly PortalNavItem[];
+  onNavigate?: () => void;
+}) {
   return (
     <nav className="portal-shell__nav" aria-label="Portal navigation">
       {items.map((item, index) => (
-        <a aria-current={index === 0 ? "page" : undefined} href={item.href} key={item.href}>
+        <a
+          aria-current={isNavItemActive(item, currentPathname, index) ? "page" : undefined}
+          href={item.href}
+          key={item.href}
+          onClick={onNavigate}
+        >
           {item.label}
         </a>
       ))}
@@ -53,7 +84,13 @@ function PortalNavigation({ items }: { items: PortalNavItem[] }) {
 }
 
 export function PortalShell({
+  accountDescription = "Foundation role",
+  accountInitials = "PM",
+  accountName = "Practice User",
+  brandHref = "/",
   children,
+  currentPathname,
+  eyebrow = "Foundation Preview",
   navItems,
   pageTitle,
   role = "patient",
@@ -67,13 +104,13 @@ export function PortalShell({
         Skip to content
       </a>
       <aside className="portal-shell__sidebar" aria-label="Portal navigation">
-        <a className="portal-shell__brand" href="/" aria-label="Plunge Care home">
+        <a className="portal-shell__brand" href={brandHref} aria-label="Plunge Care home">
           <span className="portal-shell__mark" aria-hidden="true">
             PC
           </span>
           <span>Plunge Care</span>
         </a>
-        <PortalNavigation items={resolvedNav} />
+        <PortalNavigation currentPathname={currentPathname} items={resolvedNav} />
       </aside>
       <div className="portal-shell__body">
         <header className="portal-shell__topbar">
@@ -87,14 +124,14 @@ export function PortalShell({
             Menu
           </Button>
           <div>
-            <p className="portal-shell__eyebrow">Foundation Preview</p>
+            <p className="portal-shell__eyebrow">{eyebrow}</p>
             <h1>{pageTitle}</h1>
           </div>
           <div className="portal-shell__account" aria-label="Signed in account">
-            <span aria-hidden="true">PM</span>
+            <span aria-hidden="true">{accountInitials}</span>
             <div>
-              <strong>Practice User</strong>
-              <p>Foundation role</p>
+              <strong>{accountName}</strong>
+              <p>{accountDescription}</p>
             </div>
           </div>
         </header>
@@ -110,7 +147,11 @@ export function PortalShell({
         position="left"
         title="Portal Navigation"
       >
-        <PortalNavigation items={resolvedNav} />
+        <PortalNavigation
+          currentPathname={currentPathname}
+          items={resolvedNav}
+          onNavigate={() => setDrawerOpen(false)}
+        />
       </Drawer>
     </div>
   );

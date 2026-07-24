@@ -2,7 +2,15 @@ export type MarketingRoutePath = "/" | "/services" | "/for-providers" | "/pricin
 export type TemporaryRoutePath = "/sign-in" | "/start-care";
 export type PublicRoutePath = MarketingRoutePath | TemporaryRoutePath;
 export type DevelopmentRoutePath = "/foundation" | "/foundation/components" | "/foundation/portal";
-export type RoutePath = PublicRoutePath | DevelopmentRoutePath;
+export type PatientRoutePath =
+  | "/patient"
+  | "/patient/care-requests"
+  | "/patient/messages"
+  | "/patient/my-chart"
+  | "/patient/billing"
+  | "/patient/settings";
+export type PatientDetailRoutePath = `/patient/care-requests/${string}`;
+export type RoutePath = PublicRoutePath | DevelopmentRoutePath | PatientRoutePath | PatientDetailRoutePath;
 
 export interface NavItem {
   href: MarketingRoutePath;
@@ -43,6 +51,24 @@ export const temporaryRoutes = {
   signIn: "/sign-in",
   startCare: "/start-care",
 } as const satisfies Record<string, TemporaryRoutePath>;
+
+export const patientRoutes = {
+  billing: "/patient/billing",
+  careRequests: "/patient/care-requests",
+  messages: "/patient/messages",
+  myChart: "/patient/my-chart",
+  overview: "/patient",
+  settings: "/patient/settings",
+} as const satisfies Record<string, PatientRoutePath>;
+
+export const patientNavigation = [
+  { activeWhen: [patientRoutes.overview], href: patientRoutes.overview, label: "Overview" },
+  { activeWhen: [patientRoutes.careRequests], href: patientRoutes.careRequests, label: "Care Requests" },
+  { activeWhen: [patientRoutes.messages], href: patientRoutes.messages, label: "Messages" },
+  { activeWhen: [patientRoutes.myChart], href: patientRoutes.myChart, label: "My Chart" },
+  { activeWhen: [patientRoutes.billing], href: patientRoutes.billing, label: "Billing & Payments" },
+  { activeWhen: [patientRoutes.settings], href: patientRoutes.settings, label: "Settings" },
+] as const;
 
 export const primaryNavigation: NavItem[] = [
   { href: publicRoutes.services, label: "Services" },
@@ -153,6 +179,49 @@ export const routeMetadata: Record<PublicRoutePath | DevelopmentRoutePath | "not
   },
 };
 
+export const patientRouteMetadata: Record<PatientRoutePath | "patientRequestDetail" | "patientNotFound", RouteMetadata> = {
+  "/patient": {
+    description: "Patient portal overview for fictional Plunge Care development fixtures.",
+    robots: "noindex, nofollow",
+    title: "Patient Overview | Plunge Care",
+  },
+  "/patient/billing": {
+    description: "Read-only billing and payment status preview for the Plunge Care patient portal.",
+    robots: "noindex, nofollow",
+    title: "Billing & Payments | Plunge Care",
+  },
+  "/patient/care-requests": {
+    description: "Read-only care request list for the Plunge Care patient portal.",
+    robots: "noindex, nofollow",
+    title: "Care Requests | Plunge Care",
+  },
+  "/patient/messages": {
+    description: "Presentation-only patient message center for Plunge Care development fixtures.",
+    robots: "noindex, nofollow",
+    title: "Messages | Plunge Care",
+  },
+  "/patient/my-chart": {
+    description: "Read-only My Chart preview with released-only laboratory result display.",
+    robots: "noindex, nofollow",
+    title: "My Chart | Plunge Care",
+  },
+  "/patient/settings": {
+    description: "Patient portal settings preview with accessible form controls.",
+    robots: "noindex, nofollow",
+    title: "Settings | Plunge Care",
+  },
+  patientNotFound: {
+    description: "The requested Plunge Care patient portal page could not be found.",
+    robots: "noindex, nofollow",
+    title: "Patient Page Not Found | Plunge Care",
+  },
+  patientRequestDetail: {
+    description: "Read-only care request detail for Plunge Care development fixtures.",
+    robots: "noindex, nofollow",
+    title: "Care Request | Plunge Care",
+  },
+};
+
 export function isPublicRoute(pathname: string): pathname is PublicRoutePath {
   return (
     Object.values(publicRoutes).includes(pathname as MarketingRoutePath)
@@ -162,4 +231,30 @@ export function isPublicRoute(pathname: string): pathname is PublicRoutePath {
 
 export function isDevelopmentRoute(pathname: string): pathname is DevelopmentRoutePath {
   return Object.values(developmentRoutes).includes(pathname as DevelopmentRoutePath);
+}
+
+export function getPatientRequestId(pathname: string) {
+  const match = /^\/patient\/care-requests\/([^/]+)$/.exec(pathname);
+  return match?.[1] ?? null;
+}
+
+export function isPatientRoute(pathname: string): pathname is PatientRoutePath | PatientDetailRoutePath {
+  return (
+    Object.values(patientRoutes).includes(pathname as PatientRoutePath)
+    || getPatientRequestId(pathname) !== null
+  );
+}
+
+export function isPatientPortalPath(pathname: string) {
+  return pathname === "/patient" || pathname.startsWith("/patient/");
+}
+
+export function getRouteMetadata(pathname: string): RouteMetadata {
+  const staticPatientMetadata = patientRouteMetadata[pathname as PatientRoutePath];
+
+  if (staticPatientMetadata) return staticPatientMetadata;
+  if (getPatientRequestId(pathname)) return patientRouteMetadata.patientRequestDetail;
+  if (isPatientPortalPath(pathname)) return patientRouteMetadata.patientNotFound;
+
+  return routeMetadata[pathname as keyof typeof routeMetadata] ?? routeMetadata.notFound;
 }

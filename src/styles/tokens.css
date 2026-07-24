@@ -78,6 +78,7 @@
   --shadow-focus: 0 0 0 3px rgb(15 93 168 / 28%);
 
   --content-width: 72rem;
+  --portal-content-width: 82rem;
   --sidebar-width: 17.5rem;
   --topbar-height: 4.5rem;
   --control-height: 2.75rem;
