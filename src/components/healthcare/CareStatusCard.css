@@ -1,0 +1,27 @@
+.care-status-card {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.care-status-card__heading {
+  align-items: start;
+  display: flex;
+  gap: var(--space-4);
+  justify-content: space-between;
+}
+
+.care-status-card h3,
+.care-status-card p {
+  margin: 0;
+}
+
+.care-status-card p {
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 560px) {
+  .care-status-card__heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
