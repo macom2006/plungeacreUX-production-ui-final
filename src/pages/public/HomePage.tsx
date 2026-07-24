@@ -32,7 +32,7 @@ export function HomePage() {
             </LinkButton>
           </>
         )}
-        eyebrow="Online care marketplace"
+        eyebrow="Online Care Marketplace"
         lede="Begin online, receive licensed provider review, and follow clear next steps with transparent payment timing."
         title="Modern Telehealth Care, Made Simple."
         visual="home"
@@ -42,10 +42,10 @@ export function HomePage() {
       <section className="public-section" aria-labelledby="positioning-title">
         <div className="public-container">
           <SectionHeader
-            eyebrow="How Plunge Care helps"
+            eyebrow="How Plunge Care Helps"
             id="positioning-title"
             lede="Plunge Care is designed to make the first step easier for patients while keeping clinical decisions in licensed provider hands."
-            title="A calmer front door for provider-reviewed care"
+            title="A Calmer Front Door for Provider-Reviewed Care"
           />
           <div className="public-grid">
             {marketplaceHighlights.map((item) => (
@@ -64,7 +64,7 @@ export function HomePage() {
             eyebrow="Services"
             id="services-preview-title"
             lede="Care begins with the information you share, then a provider determines whether the request is appropriate."
-            title="Support for online care requests"
+            title="Support for Online Care Requests"
           />
           <div className="public-grid">
             {serviceCategories.map((item) => (
@@ -84,10 +84,10 @@ export function HomePage() {
       <section className="public-section" aria-labelledby="process-title">
         <div className="public-container">
           <SectionHeader
-            eyebrow="How it works"
+            eyebrow="How It Works"
             id="process-title"
             lede="Share your care needs, receive provider review, and follow clear next steps. Submitting a request does not guarantee approval, treatment, or a prescription."
-            title="A trustworthy path from request to review"
+            title="A Trustworthy Path from Request to Review"
           />
           <ol className="public-process">
             {careProcessSteps.map((step) => (
@@ -104,7 +104,7 @@ export function HomePage() {
         <div className="public-container public-grid public-grid--two">
           <article className="public-card">
             <p className="public-eyebrow">Patients</p>
-            <h2 id="patient-value-title">Convenience with provider review at the center</h2>
+            <h2 id="patient-value-title">Convenience With Provider Review at the Center</h2>
             <p>
               Start from home, understand what information may be needed, and know when a provider has reviewed the request.
             </p>
@@ -114,7 +114,7 @@ export function HomePage() {
           </article>
           <article className="public-card public-card--navy">
             <p className="public-eyebrow">Providers</p>
-            <h2>Participate in a modern care marketplace</h2>
+            <h2>Participate in a Modern Care Marketplace</h2>
             <p>
               Plunge Care helps providers reach patients seeking online care while preserving provider-led clinical judgment.
             </p>
@@ -132,12 +132,12 @@ export function HomePage() {
               eyebrow="Pricing"
               id="pricing-preview-title"
               lede="Applicable charges are shown before payment. Laboratory requests preserve the required pre-review safeguard."
-              title="Pricing clarity before applicable payment steps"
+              title="Pricing Clarity Before Applicable Payment Steps"
             />
             <LinkButton href={publicRoutes.pricing}>{publicCtas.seePricing.label}</LinkButton>
           </div>
           <div className="public-note" aria-labelledby="lab-note-title">
-            <h3 id="lab-note-title">Laboratory safeguard</h3>
+            <h3 id="lab-note-title">Laboratory Safeguard</h3>
             <p>No charge until provider review.</p>
           </div>
         </div>
@@ -149,7 +149,7 @@ export function HomePage() {
             eyebrow="FAQ"
             id="faq-preview-title"
             lede="A few core questions are available here, with more detail organized by topic."
-            title="Questions before getting started"
+            title="Questions Before Getting Started"
           />
           <Accordion defaultOpenIds={[homepageFaqs[0]?.id ?? ""]} items={homepageFaqs} />
           <div className="public-actions">
@@ -163,8 +163,8 @@ export function HomePage() {
       <section className="public-section" aria-labelledby="final-cta-title">
         <div className="public-container">
           <div className="public-card public-card--mint">
-            <p className="public-eyebrow">Next step</p>
-            <h2 id="final-cta-title">Ready to understand your options?</h2>
+            <p className="public-eyebrow">Next Step</p>
+            <h2 id="final-cta-title">Ready to Understand Your Options?</h2>
             <p>
               Review service categories, pricing timing, and common questions before beginning the secure care path.
             </p>

@@ -34,9 +34,9 @@ export const careStatusTone: Record<CareStatus, StatusBadgeTone> = {
 const careStatusLabel: Record<CareStatus, string> = {
   "approved": "Approved",
   "declined": "Declined",
-  "payment-failed": "Payment failed",
-  "payment-required": "Payment required",
-  "pending-review": "Pending review",
+  "payment-failed": "Payment Failed",
+  "payment-required": "Payment Required",
+  "pending-review": "Pending Review",
   "submitted": "Submitted",
 };
 

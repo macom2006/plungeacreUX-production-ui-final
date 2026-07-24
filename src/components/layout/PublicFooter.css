@@ -27,8 +27,9 @@
   align-items: center;
   color: var(--color-text-inverse);
   display: inline-flex;
+  font-family: var(--font-heading);
   font-size: var(--font-size-xl);
-  font-weight: 800;
+  font-weight: var(--font-weight-bold);
   gap: var(--space-2);
   min-height: 44px;
   text-decoration: none;
@@ -57,7 +58,9 @@
 
 .public-footer__group h2 {
   color: var(--color-text-inverse);
+  font-family: var(--font-heading);
   font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-tight);
   margin: 0 0 var(--space-3);
 }

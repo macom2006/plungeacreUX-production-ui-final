@@ -7,37 +7,37 @@ const statuses = [
   {
     description: "The request has been received and is ready for review.",
     status: "Submitted",
-    title: "Request intake",
+    title: "Request Intake",
     tone: "information",
   },
   {
     description: "A care team member is reviewing details before the next step.",
-    status: "Pending review",
-    title: "Review queue",
+    status: "Pending Review",
+    title: "Review Queue",
     tone: "warning",
   },
   {
     description: "Action is needed before the request can continue.",
-    status: "Payment required",
-    title: "Account step",
+    status: "Payment Required",
+    title: "Account Step",
     tone: "warning",
   },
   {
     description: "The request is approved and ready for the next care milestone.",
     status: "Approved",
-    title: "Care decision",
+    title: "Care Decision",
     tone: "success",
   },
   {
     description: "The request cannot proceed in its current state.",
     status: "Declined",
-    title: "Care decision",
+    title: "Care Decision",
     tone: "danger",
   },
   {
     description: "The payment authorization failed and needs attention.",
-    status: "Payment failed",
-    title: "Account step",
+    status: "Payment Failed",
+    title: "Account Step",
     tone: "danger",
   },
 ] as const;
@@ -49,7 +49,7 @@ export function FoundationPreview() {
           <section className="foundation-preview__intro" aria-labelledby="foundation-title">
             <div>
               <p className="foundation-preview__kicker">Phase 1</p>
-              <h1 id="foundation-title">Shared shell, tokens, and primitives</h1>
+              <h1 id="foundation-title">Shared Shell, Tokens, and Primitives</h1>
               <p>
                 This preview route demonstrates the reusable visual foundation
                 for future Plunge Care patient, provider, and admin work.
@@ -65,25 +65,25 @@ export function FoundationPreview() {
                 Component showcase
               </LinkButton>
               <LinkButton href="/foundation/portal" variant="link">
-                Portal shell preview
+                Portal Shell Preview
               </LinkButton>
             </div>
           </section>
 
           <section aria-labelledby="status-title">
-            <h2 id="status-title">Status vocabulary</h2>
+            <h2 id="status-title">Status Vocabulary</h2>
             <div className="foundation-preview__badge-row">
               <StatusBadge tone="information">Submitted</StatusBadge>
-              <StatusBadge tone="warning">Pending review</StatusBadge>
-              <StatusBadge tone="warning">Payment required</StatusBadge>
+              <StatusBadge tone="warning">Pending Review</StatusBadge>
+              <StatusBadge tone="warning">Payment Required</StatusBadge>
               <StatusBadge tone="success">Approved</StatusBadge>
               <StatusBadge tone="danger">Declined</StatusBadge>
-              <StatusBadge tone="danger">Payment failed</StatusBadge>
+              <StatusBadge tone="danger">Payment Failed</StatusBadge>
             </div>
           </section>
 
           <section aria-labelledby="cards-title">
-            <h2 id="cards-title">Illustrative care cards</h2>
+              <h2 id="cards-title">Illustrative Care Cards</h2>
             <div className="foundation-preview__grid">
               {statuses.map((item) => (
                 <CareStatusCard
@@ -98,15 +98,15 @@ export function FoundationPreview() {
           </section>
 
           <section aria-labelledby="surface-title" className="foundation-preview__surfaces">
-            <h2 id="surface-title">Surface treatments</h2>
+            <h2 id="surface-title">Surface Treatments</h2>
             <div className="foundation-preview__grid foundation-preview__grid--two">
-              <Card title="Soft neutral surface">
+              <Card title="Soft Neutral Surface">
                 <p>
                   Neutral surfaces support dense portal views without competing
                   with clinical status indicators.
                 </p>
               </Card>
-              <Card className="foundation-preview__mint-card" title="Pale mint surface">
+              <Card className="foundation-preview__mint-card" title="Pale Mint Surface">
                 <p>
                   Mint surfaces are reserved for calm confirmation and clinically
                   safe moments.

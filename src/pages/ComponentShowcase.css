@@ -21,8 +21,15 @@
 
 .component-showcase__header h1 {
   color: var(--color-brand-navy);
+  font-family: var(--font-heading);
   font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-extrabold);
   line-height: var(--line-height-tight);
+}
+
+.showcase-section h2 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
 }
 
 .component-showcase__header p {

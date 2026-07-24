@@ -19,7 +19,7 @@ export function ServicesPage() {
         )}
         eyebrow="Services"
         lede="Explore online care categories designed to start with your need and continue through licensed provider review."
-        title="Online care that starts with provider review"
+        title="Online Care That Starts With Provider Review"
         visual="services"
         visualLabel="Illustration of service categories, provider review, and laboratory request timing"
       />
@@ -27,10 +27,10 @@ export function ServicesPage() {
       <section className="public-section" aria-labelledby="service-categories-title">
         <div className="public-container">
           <SectionHeader
-            eyebrow="Service categories"
+            eyebrow="Service Categories"
             id="service-categories-title"
             lede="Each category begins with information from the patient. A provider determines what care, if any, is appropriate."
-            title="Care paths designed for clear next steps"
+            title="Care Paths Designed for Clear Next Steps"
           />
           <div className="public-grid">
             {serviceCategories.map((item) => (
@@ -47,16 +47,16 @@ export function ServicesPage() {
       <section className="public-section public-section--surface" aria-labelledby="review-title">
         <div className="public-container public-grid public-grid--two">
           <article className="public-card public-card--mint">
-            <p className="public-eyebrow">Provider review</p>
-            <h2 id="review-title">Clinical appropriateness is determined by a provider</h2>
+            <p className="public-eyebrow">Provider Review</p>
+            <h2 id="review-title">Clinical Appropriateness Is Determined by a Provider</h2>
             <p>
               A provider reviews the details shared with the request before determining whether care, testing, or
               another next step is appropriate.
             </p>
           </article>
           <article className="public-card">
-            <p className="public-eyebrow">Laboratory requests</p>
-            <h2>Laboratory pricing stays protected before review</h2>
+            <p className="public-eyebrow">Laboratory Requests</p>
+            <h2>Laboratory Pricing Stays Protected Before Review</h2>
             <p>
               Laboratory requests are reviewed before any lab charge appears. No charge until provider review.
             </p>
@@ -70,7 +70,7 @@ export function ServicesPage() {
             eyebrow="Process"
             id="service-process-title"
             lede="Share your care needs, receive provider review, and follow guidance based on that review."
-            title="A simple care path"
+            title="A Simple Care Path"
           />
           <ol className="public-process">
             {careProcessSteps.map((step) => (

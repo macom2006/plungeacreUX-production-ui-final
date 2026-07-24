@@ -8,8 +8,8 @@ export function NotFoundPage() {
       <section className="public-section public-not-found" aria-labelledby="not-found-title">
         <div className="public-container">
           <div className="public-card">
-            <p className="public-eyebrow">Page not found</p>
-            <h1 id="not-found-title">We could not find that page.</h1>
+            <p className="public-eyebrow">Page Not Found</p>
+            <h1 id="not-found-title">We Could Not Find That Page.</h1>
             <p>
               The public Plunge Care page may have moved, or the address may be incomplete.
             </p>

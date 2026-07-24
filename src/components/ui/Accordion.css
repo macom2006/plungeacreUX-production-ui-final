@@ -22,7 +22,8 @@
   color: var(--color-text);
   cursor: pointer;
   display: flex;
-  font-weight: 800;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
   gap: var(--space-4);
   justify-content: space-between;
   min-height: 56px;

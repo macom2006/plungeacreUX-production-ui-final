@@ -15,7 +15,7 @@ export function FaqPage() {
       <PageHero
         eyebrow="FAQ"
         lede="Answers to common questions about provider review, pricing timing, laboratory requests, and account access."
-        title="Questions about Plunge Care"
+        title="Questions About Plunge Care"
         visual="faq"
         visualLabel="Illustration of common Plunge Care questions and helpful answers"
       />
@@ -26,7 +26,7 @@ export function FaqPage() {
             eyebrow="Questions"
             id="faq-title"
             lede="Browse by topic before beginning care or accessing your account."
-            title="Frequently asked questions"
+            title="Frequently Asked Questions"
           />
           <div className="public-faq-groups">
             {faqCategories.map((category) => {

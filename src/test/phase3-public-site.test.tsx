@@ -50,10 +50,10 @@ afterEach(() => {
 describe("public routing and layout separation", () => {
   it.each([
     [publicRoutes.home, "Modern Telehealth Care, Made Simple."],
-    [publicRoutes.services, "Online care that starts with provider review"],
-    [publicRoutes.forProviders, "Provider participation, presented clearly"],
-    [publicRoutes.pricing, "Clear pricing timing before payment"],
-    [publicRoutes.faq, "Questions about Plunge Care"],
+    [publicRoutes.services, "Online Care That Starts With Provider Review"],
+    [publicRoutes.forProviders, "Provider Participation, Presented Clearly"],
+    [publicRoutes.pricing, "Clear Pricing Timing Before Payment"],
+    [publicRoutes.faq, "Questions About Plunge Care"],
   ])("renders the public route %s with PublicNav and without PortalShell", (route, heading) => {
     renderRoute(route);
 
@@ -68,14 +68,14 @@ describe("public routing and layout separation", () => {
     const { container } = renderRoute(publicRoutes.home);
 
     expect(screen.getByRole("heading", { level: 1, name: "Modern Telehealth Care, Made Simple." })).toBeVisible();
-    expect(screen.queryByText("Shared shell, tokens, and primitives")).not.toBeInTheDocument();
+    expect(screen.queryByText("Shared Shell, Tokens, and Primitives")).not.toBeInTheDocument();
     expect(container.textContent).not.toMatch(/\$\d/);
   });
 
   it("keeps development preview routes accessible but out of public navigation", () => {
     renderRoute(developmentRoutes.foundation);
 
-    expect(screen.getByRole("heading", { name: "Shared shell, tokens, and primitives" })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Shared Shell, Tokens, and Primitives" })).toBeVisible();
     expect(screen.queryByRole("link", { name: /foundation/i })).not.toBeInTheDocument();
     expectRobots("noindex, nofollow");
   });
@@ -83,7 +83,7 @@ describe("public routing and layout separation", () => {
   it("keeps PublicNav out of portal preview routes", () => {
     renderRoute(developmentRoutes.foundationPortal);
 
-    expect(screen.getByRole("heading", { level: 1, name: "Portal shell preview" })).toBeVisible();
+    expect(screen.getByRole("heading", { level: 1, name: "Portal Shell Preview" })).toBeVisible();
     expect(screen.getByRole("navigation", { name: "Portal navigation" })).toBeInTheDocument();
     expect(screen.queryByRole("navigation", { name: "Primary navigation" })).not.toBeInTheDocument();
     expectRobots("noindex, nofollow");
@@ -92,7 +92,7 @@ describe("public routing and layout separation", () => {
   it("renders unknown routes as a public not-found page with noindex metadata", () => {
     renderRoute("/missing-public-page");
 
-    expect(screen.getByRole("heading", { level: 1, name: "We could not find that page." })).toBeVisible();
+    expect(screen.getByRole("heading", { level: 1, name: "We Could Not Find That Page." })).toBeVisible();
     expect(screen.getByRole("link", { name: "Go home" })).toHaveAttribute("href", publicRoutes.home);
     expect(screen.getByRole("navigation", { name: "Primary navigation" })).toBeInTheDocument();
     expectRobots("noindex, nofollow");
@@ -201,7 +201,7 @@ describe("public content safeguards", () => {
   it("renders approved service sections with clinical-appropriateness language and no guarantees", () => {
     const { container } = renderRoute(publicRoutes.services);
 
-    expect(screen.getByRole("heading", { name: "Care paths designed for clear next steps" })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Care Paths Designed for Clear Next Steps" })).toBeVisible();
     expect(screen.getByText(/A provider determines what care, if any, is appropriate/)).toBeVisible();
     expect(container.textContent).not.toMatch(/guaranteed prescription/i);
     expect(container.textContent).not.toMatch(/guaranteed treatment/i);
@@ -211,7 +211,7 @@ describe("public content safeguards", () => {
   it("keeps the provider page public and free of provider workflow controls", () => {
     const { container } = renderRoute(publicRoutes.forProviders);
 
-    expect(screen.getByRole("heading", { name: "A care marketplace for licensed providers" })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "A Care Marketplace for Licensed Providers" })).toBeVisible();
     expect(screen.getByRole("link", { name: "Access provider area" })).toHaveAttribute("href", "/sign-in");
     expect(screen.queryByRole("navigation", { name: "Portal navigation" })).not.toBeInTheDocument();
     expect(container.textContent).not.toMatch(/guaranteed income/i);
@@ -235,13 +235,13 @@ describe("public content safeguards", () => {
   });
 
   it.each([
-    [temporaryRoutes.startCare, "Start care access is being prepared."],
-    [temporaryRoutes.signIn, "Secure sign-in is being prepared."],
+    [temporaryRoutes.startCare, "Start Care Access Is Being Prepared."],
+    [temporaryRoutes.signIn, "Secure Sign-In Is Being Prepared."],
   ])("renders %s as an intentional temporary page", (route, heading) => {
     const { container } = renderRoute(route);
 
     expect(screen.getByRole("heading", { level: 1, name: heading })).toBeVisible();
-    expect(screen.queryByRole("heading", { name: "We could not find that page." })).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "We Could Not Find That Page." })).not.toBeInTheDocument();
     expect(container.querySelector("form")).not.toBeInTheDocument();
     expectRobots("noindex, nofollow");
     expect(document.head.querySelector('link[rel="canonical"]')).not.toBeInTheDocument();

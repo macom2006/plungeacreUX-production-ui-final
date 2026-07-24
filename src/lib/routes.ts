@@ -138,18 +138,18 @@ export const routeMetadata: Record<PublicRoutePath | DevelopmentRoutePath | "not
     description:
       "Plunge Care account access is being prepared for patients and providers.",
     robots: "noindex, nofollow",
-    title: "Sign in | Plunge Care",
+    title: "Sign In | Plunge Care",
   },
   "/start-care": {
     description:
       "The secure Plunge Care start-care experience is being prepared.",
     robots: "noindex, nofollow",
-    title: "Start care | Plunge Care",
+    title: "Start Care | Plunge Care",
   },
   notFound: {
     description: "The requested public Plunge Care page could not be found.",
     robots: "noindex, nofollow",
-    title: "Page not found | Plunge Care",
+    title: "Page Not Found | Plunge Care",
   },
 };
 

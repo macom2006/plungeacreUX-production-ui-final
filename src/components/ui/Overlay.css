@@ -53,6 +53,12 @@
   margin: 0;
 }
 
+.dialog h2,
+.drawer h2 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+}
+
 .dialog__header p,
 .drawer__header p {
   color: var(--color-text-muted);

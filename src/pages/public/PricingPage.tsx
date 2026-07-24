@@ -19,7 +19,7 @@ export function PricingPage() {
         )}
         eyebrow="Pricing"
         lede="See when charges are presented, what listed fees cover, and how laboratory requests are handled after provider review."
-        title="Clear pricing timing before payment"
+        title="Clear Pricing Timing Before Payment"
         visual="pricing"
         visualLabel="Illustration of pricing timing, provider fees, and laboratory review safeguards"
       />
@@ -27,10 +27,10 @@ export function PricingPage() {
       <section className="public-section" aria-labelledby="pricing-values-title">
         <div className="public-container">
           <SectionHeader
-            eyebrow="Pricing basics"
+            eyebrow="Pricing Basics"
             id="pricing-values-title"
             lede="These values are shown as separate pricing references. Any applicable final charge is presented before payment."
-            title="What patients can expect to see"
+            title="What Patients Can Expect to See"
           />
           <div className="public-pricing-list">
             {pricingItems.map((item) => (
@@ -52,7 +52,7 @@ export function PricingPage() {
             eyebrow="Safeguards"
             id="pricing-principles-title"
             lede="Pricing is easiest to understand when provider fees, platform fees, and lab request timing stay clear."
-            title="Payment timing that is easier to understand"
+            title="Payment Timing That Is Easier to Understand"
           />
           <div className="public-grid">
             {pricingPrinciples.map((item) => (
@@ -68,11 +68,11 @@ export function PricingPage() {
       <section className="public-section" aria-labelledby="lab-charge-title">
         <div className="public-container public-grid public-grid--two">
           <div className="public-note" aria-labelledby="lab-charge-title">
-            <h2 id="lab-charge-title">Laboratory request timing</h2>
+            <h2 id="lab-charge-title">Laboratory Request Timing</h2>
             <p>No charge until provider review.</p>
           </div>
           <div className="public-note public-note--info" aria-labelledby="provider-fees-title">
-            <h2 id="provider-fees-title">Provider fees</h2>
+            <h2 id="provider-fees-title">Provider Fees</h2>
             <p>Provider fees may vary and are shown before payment when they apply.</p>
           </div>
         </div>

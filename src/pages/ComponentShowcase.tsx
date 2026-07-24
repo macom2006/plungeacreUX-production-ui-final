@@ -46,10 +46,10 @@ import {
 import "./ComponentShowcase.css";
 
 const statusOptions = [
-  { label: "All statuses", value: "all" },
+  { label: "All Statuses", value: "all" },
   { label: "Submitted", value: "submitted" },
-  { label: "Pending review", value: "pending-review" },
-  { label: "Payment required", value: "payment-required" },
+  { label: "Pending Review", value: "pending-review" },
+  { label: "Payment Required", value: "payment-required" },
   { label: "Approved", value: "approved" },
 ];
 
@@ -63,7 +63,7 @@ function ToastDemo() {
         Show success toast
       </Button>
       <Button
-        onClick={() => showToast({ title: "Needs review", description: "This warning remains readable.", tone: "warning" })}
+        onClick={() => showToast({ title: "Needs Review", description: "This warning remains readable.", tone: "warning" })}
         variant="outline"
       >
         Show warning toast
@@ -93,7 +93,7 @@ export function ComponentShowcase() {
                 { label: "Components" },
               ]}
             />
-            <h1>Shared production UI components</h1>
+            <h1>Shared Production UI Components</h1>
             <p>
               Development-only preview for Phase 2 primitives, layouts, states,
               and healthcare foundations.
@@ -145,7 +145,7 @@ export function ComponentShowcase() {
             </div>
             <RadioGroup
               description="Arrow keys move between options."
-              legend="Portal role preview"
+              legend="Portal Role Preview"
               name="portal-role"
               onChange={setRadioValue}
               options={[
@@ -157,17 +157,17 @@ export function ComponentShowcase() {
             />
           </ShowcaseSection>
 
-          <ShowcaseSection title="Feedback and status">
+          <ShowcaseSection title="Feedback and Status">
             <div className="showcase-grid showcase-grid--two">
               <Alert
                 description="Non-urgent notices use polite semantics."
-                title="Information notice"
+                title="Information Notice"
                 tone="info"
               />
               <Alert
                 description="Urgent dynamic errors may opt into role alert."
                 role="alert"
-                title="Action failed"
+                title="Action Failed"
                 tone="danger"
               />
             </div>
@@ -188,7 +188,7 @@ export function ComponentShowcase() {
               actions={<Button variant="secondary">Secondary action</Button>}
               description="This demonstrates compact and full-page empty state structure."
               icon="i"
-              title="No preview records"
+              title="No Preview Records"
             />
           </ShowcaseSection>
 
@@ -263,7 +263,7 @@ export function ComponentShowcase() {
               description="Focus is trapped while this dialog is open."
               isOpen={dialogOpen}
               onClose={() => setDialogOpen(false)}
-              title="Accessible dialog"
+              title="Accessible Dialog"
             >
               <p>Escape closes the dialog and focus returns to the trigger.</p>
               <Button onClick={() => setDialogOpen(false)}>Close</Button>
@@ -275,14 +275,14 @@ export function ComponentShowcase() {
               isOpen={confirmOpen}
               onCancel={() => setConfirmOpen(false)}
               onConfirm={() => setConfirmOpen(false)}
-              title="Confirm archive"
+              title="Confirm Archive"
               tone="danger"
             />
             <Drawer
               description="Drawers are reserved for context and filters, not clinical or financial actions."
               isOpen={drawerOpen}
               onClose={() => setDrawerOpen(false)}
-              title="Filter drawer"
+              title="Filter Drawer"
             >
               <FilterBar
                 activeFilterCount={search || status !== "all" ? 1 : 0}
@@ -324,9 +324,9 @@ export function ComponentShowcase() {
             />
           </ShowcaseSection>
 
-          <ShowcaseSection title="Data display">
+          <ShowcaseSection title="Data Display">
             <DataTable>
-              <DataTableCaption>Preview request records with native table semantics.</DataTableCaption>
+              <DataTableCaption>Preview Request Records</DataTableCaption>
               <DataTableHeader>
                 <DataTableRow>
                   <SortableHeader direction="ascending">Request</SortableHeader>
@@ -349,7 +349,7 @@ export function ComponentShowcase() {
               ]}
               primaryAction={<Button variant="secondary">Open</Button>}
               status={<StatusBadge status="pending-review" />}
-              title="Mobile record card"
+              title="Mobile Record Card"
             />
             <div className="showcase-row">
               <Avatar alt="Practice user" initials="PU" status="online" />
@@ -368,7 +368,7 @@ export function ComponentShowcase() {
             />
           </ShowcaseSection>
 
-          <ShowcaseSection title="Healthcare foundations">
+          <ShowcaseSection title="Healthcare Foundations">
             <div className="showcase-grid showcase-grid--two">
               <CareRequestCard
                 providerReviewState="not-reviewed"
@@ -377,7 +377,7 @@ export function ComponentShowcase() {
                 status="submitted"
                 submittedDate="Today"
                 summary="Illustrative lab request copy with no estimated laboratory amount."
-                title="Submitted lab request"
+                title="Submitted Lab Request"
               />
               <CareRequestCard
                 providerReviewState="not-reviewed"
@@ -386,7 +386,7 @@ export function ComponentShowcase() {
                 status="pending-review"
                 submittedDate="Today"
                 summary="Illustrative lab request copy awaiting provider review."
-                title="Lab review request"
+                title="Lab Review Request"
               />
               <PatientContextCard
                 patient={{
@@ -414,27 +414,27 @@ export function ComponentShowcase() {
                   title: "Submitted",
                 },
                 {
-                  category: "Clinical review",
+                  category: "Clinical Review",
                   dateTime: "2026-07-01T13:30:00-05:00",
                   description: "A provider is reviewing eligibility and next steps before any follow-up action is shown.",
                   id: "pending-review",
                   state: "current",
                   timestamp: "Jul 1, 2026 at 1:30 PM",
-                  title: "Pending review",
+                  title: "Pending Review",
                 },
                 {
                   category: "Billing",
                   description: "Server-supplied payment status would appear here when available.",
                   id: "payment-required",
                   state: "upcoming",
-                  title: "Payment required",
+                  title: "Payment Required",
                 },
                 {
                   category: "Decision",
                   description: "This illustrates a failed terminal status without relying on red alone.",
                   id: "payment-failed",
                   state: "failed",
-                  title: "Payment failed",
+                  title: "Payment Failed",
                 },
               ]}
             />

@@ -20,8 +20,9 @@
   align-items: center;
   color: var(--color-brand-navy);
   display: inline-flex;
+  font-family: var(--font-heading);
   font-size: var(--font-size-xl);
-  font-weight: 800;
+  font-weight: var(--font-weight-bold);
   gap: var(--space-2);
   min-height: 44px;
   text-decoration: none;
@@ -52,7 +53,8 @@
 
 .public-nav__links a {
   color: var(--color-text);
-  font-weight: 700;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-medium);
   min-height: 44px;
   display: inline-flex;
   align-items: center;
@@ -87,7 +89,8 @@
   border-radius: var(--radius-md);
   color: var(--color-text);
   display: flex;
-  font-weight: 800;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
   min-height: 44px;
   padding: var(--space-3);
   text-decoration: none;

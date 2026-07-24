@@ -10,8 +10,9 @@
 
 .data-table__caption {
   color: var(--color-text-muted);
+  font-family: var(--font-heading);
   font-size: var(--font-size-sm);
-  font-weight: 700;
+  font-weight: var(--font-weight-semibold);
   padding: var(--space-3);
   text-align: left;
 }
@@ -26,8 +27,9 @@
 
 .data-table th {
   color: var(--color-text-muted);
+  font-family: var(--font-body);
   font-size: var(--font-size-sm);
-  text-transform: uppercase;
+  font-weight: var(--font-weight-semibold);
 }
 
 .data-table__row--selected {
@@ -42,7 +44,8 @@
   cursor: pointer;
   display: inline-flex;
   font: inherit;
-  font-weight: 800;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
   gap: var(--space-2);
   min-height: 44px;
   padding: 0;
@@ -66,6 +69,8 @@
 }
 
 .mobile-record-card h3 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
   margin: 0;
 }
 
@@ -94,7 +99,7 @@
 .description-list dt {
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
-  font-weight: 800;
+  font-weight: var(--font-weight-semibold);
 }
 
 .mobile-record-card dd,
@@ -152,7 +157,8 @@
   border-radius: var(--radius-pill);
   color: var(--color-success);
   display: inline-flex;
-  font-weight: 800;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
   justify-content: center;
   position: relative;
 }

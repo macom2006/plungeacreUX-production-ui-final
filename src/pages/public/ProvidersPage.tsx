@@ -10,15 +10,15 @@ const providerFaqs = faqItems
 const joiningSteps = [
   {
     description: "Review how Plunge Care connects patients seeking online care with licensed provider review.",
-    title: "Learn the marketplace",
+    title: "Learn the Marketplace",
   },
   {
     description: "Provider participation may require profile details, state license information, fees, and W-9 information.",
-    title: "Prepare participation details",
+    title: "Prepare Participation Details",
   },
   {
     description: "Access the provider area when secure sign-in is available and follow any requested next steps.",
-    title: "Access the provider area",
+    title: "Access the Provider Area",
   },
 ];
 
@@ -36,9 +36,9 @@ export function ProvidersPage() {
             </LinkButton>
           </>
         )}
-        eyebrow="For providers"
+        eyebrow="For Providers"
         lede="Plunge Care is an online care marketplace built around licensed provider review, patient convenience, and clear participation expectations."
-        title="Provider participation, presented clearly"
+        title="Provider Participation, Presented Clearly"
         visual="providers"
         visualLabel="Illustration of provider marketplace participation and provider-led review"
       />
@@ -49,7 +49,7 @@ export function ProvidersPage() {
             eyebrow="Opportunity"
             id="provider-benefits-title"
             lede="Participating providers can consider a modern online channel while maintaining professional clinical judgment."
-            title="A care marketplace for licensed providers"
+            title="A Care Marketplace for Licensed Providers"
           />
           <div className="public-grid">
             {providerBenefits.map((item) => (
@@ -65,10 +65,10 @@ export function ProvidersPage() {
       <section className="public-section public-section--surface" aria-labelledby="joining-title">
         <div className="public-container">
           <SectionHeader
-            eyebrow="Joining process"
+            eyebrow="Joining Process"
             id="joining-title"
             lede="The exact participation steps may depend on provider qualifications, licensure, and requested documentation."
-            title="What provider participation can involve"
+            title="What Provider Participation Can Involve"
           />
           <ol className="public-process">
             {joiningSteps.map((step) => (
@@ -87,7 +87,7 @@ export function ProvidersPage() {
             eyebrow="Provider FAQ"
             id="provider-faq-title"
             lede="Common questions for providers considering Plunge Care."
-            title="Provider questions"
+            title="Provider Questions"
           />
           <Accordion defaultOpenIds={[providerFaqs[0]?.id ?? ""]} items={providerFaqs} />
         </div>

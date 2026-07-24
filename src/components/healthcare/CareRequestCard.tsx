@@ -5,6 +5,12 @@ import "./Healthcare.css";
 export type CareService = "prescription" | "laboratory" | "consultation";
 export type ProviderReviewState = "not-reviewed" | "reviewed";
 
+const careServiceLabel: Record<CareService, string> = {
+  consultation: "Consultation",
+  laboratory: "Laboratory",
+  prescription: "Prescription",
+};
+
 interface BaseCareRequestCardProps {
   primaryAction?: ReactNode;
   provider?: string;
@@ -51,7 +57,7 @@ export function CareRequestCard({
     <Card className="care-request-card">
       <div className="care-request-card__header">
         <div>
-          <p className="care-request-card__service">{service}</p>
+          <p className="care-request-card__service">{careServiceLabel[service]}</p>
           <h3>{title}</h3>
         </div>
         <StatusBadge status={status} />

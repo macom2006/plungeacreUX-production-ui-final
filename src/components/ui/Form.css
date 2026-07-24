@@ -7,7 +7,8 @@
 .choice__label,
 .switch-field__label {
   color: var(--color-text);
-  font-weight: 800;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-medium);
 }
 
 .form-field__required {
@@ -39,12 +40,12 @@
 
 .form-field__message--error {
   color: var(--color-danger);
-  font-weight: 700;
+  font-weight: var(--font-weight-semibold);
 }
 
 .form-field__message--success {
   color: var(--color-success);
-  font-weight: 700;
+  font-weight: var(--font-weight-semibold);
 }
 
 .form-control,
@@ -218,7 +219,8 @@
 
 .radio-group legend {
   color: var(--color-text);
-  font-weight: 800;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
   padding: 0;
 }
 
