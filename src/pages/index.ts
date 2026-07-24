@@ -8,4 +8,5 @@ export {
   PricingPage,
   ProvidersPage,
   ServicesPage,
+  TemporaryAccessPage,
 } from "./public";

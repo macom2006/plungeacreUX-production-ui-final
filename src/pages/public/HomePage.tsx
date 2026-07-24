@@ -27,20 +27,24 @@ export function HomePage() {
             <LinkButton href={publicCtas.exploreServices.href} size="lg" variant="secondary">
               {publicCtas.exploreServices.label}
             </LinkButton>
+            <LinkButton href={publicCtas.forProviders.href} size="lg" variant="ghost">
+              {publicCtas.forProviders.label}
+            </LinkButton>
           </>
         )}
         eyebrow="Online care marketplace"
-        lede="Plunge Care helps patients begin online care requests, follow provider review, and understand next steps with clear status and payment timing."
-        title="Modern care, made simple."
-        visualLabel="Illustrative public homepage visual showing request, review, and payment timing cards"
+        lede="Begin online, receive licensed provider review, and follow clear next steps with transparent payment timing."
+        title="Modern Telehealth Care, Made Simple."
+        visual="home"
+        visualLabel="Illustration of online care requests, licensed provider review, and clear next steps"
       />
 
       <section className="public-section" aria-labelledby="positioning-title">
         <div className="public-container">
           <SectionHeader
-            eyebrow="Trust and positioning"
+            eyebrow="How Plunge Care helps"
             id="positioning-title"
-            lede="The public experience explains what Plunge Care organizes without promising approval, prescriptions, or treatment."
+            lede="Plunge Care is designed to make the first step easier for patients while keeping clinical decisions in licensed provider hands."
             title="A calmer front door for provider-reviewed care"
           />
           <div className="public-grid">
@@ -59,8 +63,8 @@ export function HomePage() {
           <SectionHeader
             eyebrow="Services"
             id="services-preview-title"
-            lede="Service content stays high level until a later secure care workflow can collect the required information."
-            title="Support for care requests, review, and communication"
+            lede="Care begins with the information you share, then a provider determines whether the request is appropriate."
+            title="Support for online care requests"
           />
           <div className="public-grid">
             {serviceCategories.map((item) => (
@@ -82,8 +86,8 @@ export function HomePage() {
           <SectionHeader
             eyebrow="How it works"
             id="process-title"
-            lede="The public site describes the process without implementing patient intake, checkout, or clinical workflows."
-            title="Clear steps before secure care workflows"
+            lede="Share your care needs, receive provider review, and follow clear next steps. Submitting a request does not guarantee approval, treatment, or a prescription."
+            title="A trustworthy path from request to review"
           />
           <ol className="public-process">
             {careProcessSteps.map((step) => (
@@ -102,8 +106,7 @@ export function HomePage() {
             <p className="public-eyebrow">Patients</p>
             <h2 id="patient-value-title">Convenience with provider review at the center</h2>
             <p>
-              Patients can understand the role of online requests, provider review, communication, and transparent
-              payment timing before entering future secure workflows.
+              Start from home, understand what information may be needed, and know when a provider has reviewed the request.
             </p>
             <LinkButton href={publicRoutes.services} variant="secondary">
               Review services
@@ -111,10 +114,9 @@ export function HomePage() {
           </article>
           <article className="public-card public-card--navy">
             <p className="public-eyebrow">Providers</p>
-            <h2>Provider opportunity without portal actions</h2>
+            <h2>Participate in a modern care marketplace</h2>
             <p>
-              Provider-facing public content explains the marketplace model without implementing onboarding,
-              credentialing, availability, clinical queue, or payout features.
+              Plunge Care helps providers reach patients seeking online care while preserving provider-led clinical judgment.
             </p>
             <LinkButton href={publicRoutes.forProviders} variant="secondary">
               Learn about providers
@@ -129,7 +131,7 @@ export function HomePage() {
             <SectionHeader
               eyebrow="Pricing"
               id="pricing-preview-title"
-              lede="Applicable pricing is confirmed before payment actions. Laboratory requests preserve the required pre-review safeguard."
+              lede="Applicable charges are shown before payment. Laboratory requests preserve the required pre-review safeguard."
               title="Pricing clarity before applicable payment steps"
             />
             <LinkButton href={publicRoutes.pricing}>{publicCtas.seePricing.label}</LinkButton>
@@ -146,7 +148,7 @@ export function HomePage() {
           <SectionHeader
             eyebrow="FAQ"
             id="faq-preview-title"
-            lede="A few core questions are available here, with the full FAQ organized by category."
+            lede="A few core questions are available here, with more detail organized by topic."
             title="Questions before getting started"
           />
           <Accordion defaultOpenIds={[homepageFaqs[0]?.id ?? ""]} items={homepageFaqs} />
@@ -162,9 +164,9 @@ export function HomePage() {
         <div className="public-container">
           <div className="public-card public-card--mint">
             <p className="public-eyebrow">Next step</p>
-            <h2 id="final-cta-title">Start from a clear public overview</h2>
+            <h2 id="final-cta-title">Ready to understand your options?</h2>
             <p>
-              Continue to the future care entry point when it is available, or review services and pricing first.
+              Review service categories, pricing timing, and common questions before beginning the secure care path.
             </p>
             <div className="public-actions">
               <LinkButton href={publicCtas.startCare.href}>{publicCtas.startCare.label}</LinkButton>

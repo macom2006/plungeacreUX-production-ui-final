@@ -12,6 +12,10 @@ function upsertMeta(name: string, content: string) {
   element.setAttribute("content", content);
 }
 
+function removeCanonical() {
+  document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.remove();
+}
+
 function upsertCanonical(pathname: string) {
   const href = `${window.location.origin}${pathname}`;
   let element = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
@@ -28,5 +32,12 @@ function upsertCanonical(pathname: string) {
 export function applyRouteMetadata(metadata: RouteMetadata, pathname: string) {
   document.title = metadata.title;
   upsertMeta("description", metadata.description);
-  upsertCanonical(pathname);
+  upsertMeta("robots", metadata.robots);
+
+  if (metadata.robots === "index, follow") {
+    upsertCanonical(pathname);
+    return;
+  }
+
+  removeCanonical();
 }

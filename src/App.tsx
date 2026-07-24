@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { applyRouteMetadata } from "./lib/documentMeta";
-import { developmentRoutes, publicRoutes, routeMetadata } from "./lib/routes";
+import { developmentRoutes, publicRoutes, routeMetadata, temporaryRoutes } from "./lib/routes";
 import { ComponentShowcase } from "./pages/ComponentShowcase";
 import { FoundationPreview } from "./pages/FoundationPreview";
 import { PortalPreview } from "./pages/PortalPreview";
@@ -11,6 +11,7 @@ import {
   PricingPage,
   ProvidersPage,
   ServicesPage,
+  TemporaryAccessPage,
 } from "./pages/public";
 
 export default function App() {
@@ -39,6 +40,10 @@ export default function App() {
 
   if (pathname === publicRoutes.faq) {
     return <FaqPage />;
+  }
+
+  if (pathname === temporaryRoutes.signIn || pathname === temporaryRoutes.startCare) {
+    return <TemporaryAccessPage pathname={pathname} />;
   }
 
   if (pathname === developmentRoutes.foundation) {

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { futureRoutes, primaryNavigation } from "../../lib/routes";
+import brandMarkUrl from "../../assets/plunge-care-logo.png";
+import { primaryNavigation, temporaryRoutes } from "../../lib/routes";
 import { Button, Drawer, LinkButton } from "../ui";
 import "./PublicNav.css";
 
@@ -14,10 +15,8 @@ export function PublicNav({ currentPathname = window.location.pathname }: Public
   return (
     <header className="public-nav">
       <a className="public-nav__brand" href="/" aria-label="Plunge Care home">
-        <span className="public-nav__mark" aria-hidden="true">
-          P
-        </span>
-        <span className="public-nav__wordmark">
+        <img alt="" aria-hidden="true" className="public-nav__mark" src={brandMarkUrl} />
+        <span aria-hidden="true" className="public-nav__wordmark">
           <span>Plunge</span>
           <span>Care</span>
         </span>
@@ -46,13 +45,13 @@ export function PublicNav({ currentPathname = window.location.pathname }: Public
         ))}
       </nav>
       <div className="public-nav__actions">
-        <LinkButton href={futureRoutes.signIn} variant="ghost">
+        <LinkButton href={temporaryRoutes.signIn} variant="ghost">
           Sign in
         </LinkButton>
-        <LinkButton href={futureRoutes.startCare}>Start care</LinkButton>
+        <LinkButton href={temporaryRoutes.startCare}>Start care</LinkButton>
       </div>
       <Drawer
-        description="Public website navigation links. Clinical and payment workflows are not available from this menu."
+        description="Navigation links for Plunge Care information and account access."
         id="public-mobile-menu"
         isOpen={mobileOpen}
         onClose={closeMobileMenu}
@@ -79,10 +78,10 @@ export function PublicNav({ currentPathname = window.location.pathname }: Public
           ))}
         </nav>
         <div className="public-nav__drawer-actions">
-          <LinkButton fullWidth href={futureRoutes.signIn} onClick={closeMobileMenu} variant="secondary">
+          <LinkButton fullWidth href={temporaryRoutes.signIn} onClick={closeMobileMenu} variant="secondary">
             Sign in
           </LinkButton>
-          <LinkButton fullWidth href={futureRoutes.startCare} onClick={closeMobileMenu}>
+          <LinkButton fullWidth href={temporaryRoutes.startCare} onClick={closeMobileMenu}>
             Start care
           </LinkButton>
         </div>

@@ -4,3 +4,4 @@ export { NotFoundPage } from "./NotFoundPage";
 export { PricingPage } from "./PricingPage";
 export { ProvidersPage } from "./ProvidersPage";
 export { ServicesPage } from "./ServicesPage";
+export { TemporaryAccessPage } from "./TemporaryAccessPage";

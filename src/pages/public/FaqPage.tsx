@@ -1,17 +1,9 @@
 import { Accordion } from "../../components/ui";
-import { faqItems, type FaqItem } from "../../lib/publicContent";
+import { faqCategories, faqItems, type FaqCategoryId } from "../../lib/publicContent";
 import { publicRoutes } from "../../lib/routes";
 import { PageHero, PublicPageShell, SectionHeader } from "./pageHelpers";
 
-const categories: FaqItem["category"][] = [
-  "Getting care",
-  "Providers",
-  "Pricing and payment",
-  "Laboratory requests",
-  "Account and privacy",
-];
-
-function itemsForCategory(category: FaqItem["category"]) {
+function itemsForCategory(category: FaqCategoryId) {
   return faqItems
     .filter((item) => item.category === category)
     .map((item) => ({ content: <p>{item.answer}</p>, id: item.id, title: item.question }));
@@ -22,9 +14,10 @@ export function FaqPage() {
     <PublicPageShell pathname={publicRoutes.faq}>
       <PageHero
         eyebrow="FAQ"
-        lede="Answers stay within approved public content and avoid legal, clinical, privacy, financial, or compliance claims that have not been sourced."
+        lede="Answers to common questions about provider review, pricing timing, laboratory requests, and account access."
         title="Questions about Plunge Care"
-        visualLabel="Illustrative FAQ visual showing public question categories and provider review safeguards"
+        visual="faq"
+        visualLabel="Illustration of common Plunge Care questions and helpful answers"
       />
 
       <section className="public-section" aria-labelledby="faq-title">
@@ -32,17 +25,21 @@ export function FaqPage() {
           <SectionHeader
             eyebrow="Questions"
             id="faq-title"
-            lede="Questions are grouped for scanability and each answer expands with button-based disclosure behavior."
-            title="Public FAQ"
+            lede="Browse by topic before beginning care or accessing your account."
+            title="Frequently asked questions"
           />
           <div className="public-faq-groups">
-            {categories.map((category) => {
-              const items = itemsForCategory(category);
+            {faqCategories.map((category) => {
+              const items = itemsForCategory(category.id);
               if (items.length === 0) return null;
 
               return (
-                <section className="public-faq-group" key={category} aria-labelledby={`${category}-title`}>
-                  <h2 id={`${category}-title`}>{category}</h2>
+                <section
+                  aria-labelledby={`faq-category-${category.id}`}
+                  className="public-faq-group"
+                  key={category.id}
+                >
+                  <h2 id={`faq-category-${category.id}`}>{category.label}</h2>
                   <Accordion items={items} />
                 </section>
               );

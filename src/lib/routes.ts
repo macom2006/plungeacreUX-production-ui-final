@@ -1,10 +1,11 @@
-export type PublicRoutePath = "/" | "/services" | "/for-providers" | "/pricing" | "/faq";
+export type MarketingRoutePath = "/" | "/services" | "/for-providers" | "/pricing" | "/faq";
+export type TemporaryRoutePath = "/sign-in" | "/start-care";
+export type PublicRoutePath = MarketingRoutePath | TemporaryRoutePath;
 export type DevelopmentRoutePath = "/foundation" | "/foundation/components" | "/foundation/portal";
-export type FutureRoutePath = "/sign-in" | "/start-care";
-export type RoutePath = PublicRoutePath | DevelopmentRoutePath | FutureRoutePath;
+export type RoutePath = PublicRoutePath | DevelopmentRoutePath;
 
 export interface NavItem {
-  href: PublicRoutePath;
+  href: MarketingRoutePath;
   label: string;
 }
 
@@ -20,6 +21,7 @@ export interface FooterGroup {
 
 export interface RouteMetadata {
   description: string;
+  robots: "index, follow" | "noindex, nofollow";
   title: string;
 }
 
@@ -37,10 +39,10 @@ export const developmentRoutes = {
   foundationPortal: "/foundation/portal",
 } as const satisfies Record<string, DevelopmentRoutePath>;
 
-export const futureRoutes = {
+export const temporaryRoutes = {
   signIn: "/sign-in",
   startCare: "/start-care",
-} as const satisfies Record<string, FutureRoutePath>;
+} as const satisfies Record<string, TemporaryRoutePath>;
 
 export const primaryNavigation: NavItem[] = [
   { href: publicRoutes.services, label: "Services" },
@@ -51,7 +53,7 @@ export const primaryNavigation: NavItem[] = [
 
 export const footerGroups: FooterGroup[] = [
   {
-    ariaLabel: "Public pages",
+    ariaLabel: "Site pages",
     links: [
       { href: publicRoutes.services, label: "Services" },
       { href: publicRoutes.pricing, label: "Pricing" },
@@ -62,7 +64,7 @@ export const footerGroups: FooterGroup[] = [
   {
     ariaLabel: "Patient links",
     links: [
-      { href: futureRoutes.startCare, label: "Start care", note: "Future destination" },
+      { href: temporaryRoutes.startCare, label: "Start care" },
       { href: publicRoutes.services, label: "How care works" },
       { href: publicRoutes.pricing, label: "Pricing basics" },
     ],
@@ -80,7 +82,7 @@ export const footerGroups: FooterGroup[] = [
     ariaLabel: "Support links",
     links: [
       { href: publicRoutes.faq, label: "FAQ" },
-      { href: futureRoutes.signIn, label: "Sign in", note: "Future destination" },
+      { href: temporaryRoutes.signIn, label: "Sign in" },
     ],
     title: "Support",
   },
@@ -89,49 +91,73 @@ export const footerGroups: FooterGroup[] = [
 export const routeMetadata: Record<PublicRoutePath | DevelopmentRoutePath | "notFound", RouteMetadata> = {
   "/": {
     description:
-      "Plunge Care connects patients with online care requests, provider review, clear next steps, and transparent payment timing.",
-    title: "Plunge Care | Online care with provider review",
+      "Start online care with Plunge Care through licensed provider review, clear next steps, and transparent payment timing.",
+    robots: "index, follow",
+    title: "Plunge Care | Modern Telehealth Care, Made Simple",
   },
   "/faq": {
     description:
-      "Answers about Plunge Care services, provider review, pricing timing, laboratory safeguards, and account access.",
+      "Find answers about Plunge Care, provider review, pricing timing, laboratory requests, and account access.",
+    robots: "index, follow",
     title: "FAQ | Plunge Care",
   },
   "/for-providers": {
     description:
-      "Learn how Plunge Care presents a provider marketplace opportunity without portal onboarding or workflow actions.",
+      "Learn how licensed providers can consider participating in the Plunge Care online care marketplace.",
+    robots: "index, follow",
     title: "For Providers | Plunge Care",
   },
   "/foundation": {
     description: "Development preview for the Plunge Care foundation shell, tokens, and primitives.",
+    robots: "noindex, nofollow",
     title: "Foundation Preview | Plunge Care",
   },
   "/foundation/components": {
     description: "Development preview for Plunge Care shared UI components.",
+    robots: "noindex, nofollow",
     title: "Component Showcase | Plunge Care",
   },
   "/foundation/portal": {
     description: "Development preview for the Plunge Care portal shell.",
+    robots: "noindex, nofollow",
     title: "Portal Shell Preview | Plunge Care",
   },
   "/pricing": {
     description:
-      "Plunge Care pricing principles, approved public display values, payment timing, and laboratory review safeguards.",
+      "Review Plunge Care pricing timing, provider fee information, and the laboratory review safeguard.",
+    robots: "index, follow",
     title: "Pricing | Plunge Care",
   },
   "/services": {
     description:
-      "Explore Plunge Care service categories with provider review, communication, laboratory request safeguards, and clear care steps.",
+      "Explore Plunge Care service categories for online care requests, provider review, communication, and lab request timing.",
+    robots: "index, follow",
     title: "Services | Plunge Care",
+  },
+  "/sign-in": {
+    description:
+      "Plunge Care account access is being prepared for patients and providers.",
+    robots: "noindex, nofollow",
+    title: "Sign in | Plunge Care",
+  },
+  "/start-care": {
+    description:
+      "The secure Plunge Care start-care experience is being prepared.",
+    robots: "noindex, nofollow",
+    title: "Start care | Plunge Care",
   },
   notFound: {
     description: "The requested public Plunge Care page could not be found.",
+    robots: "noindex, nofollow",
     title: "Page not found | Plunge Care",
   },
 };
 
 export function isPublicRoute(pathname: string): pathname is PublicRoutePath {
-  return Object.values(publicRoutes).includes(pathname as PublicRoutePath);
+  return (
+    Object.values(publicRoutes).includes(pathname as MarketingRoutePath)
+    || Object.values(temporaryRoutes).includes(pathname as TemporaryRoutePath)
+  );
 }
 
 export function isDevelopmentRoute(pathname: string): pathname is DevelopmentRoutePath {

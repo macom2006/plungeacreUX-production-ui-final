@@ -18,9 +18,10 @@ export function ServicesPage() {
           </>
         )}
         eyebrow="Services"
-        lede="Plunge Care public services are explained as high-level support areas. Provider review determines clinical appropriateness."
-        title="Care request support without unsupported guarantees"
-        visualLabel="Illustrative services visual showing provider review and laboratory request safeguards"
+        lede="Explore online care categories designed to start with your need and continue through licensed provider review."
+        title="Online care that starts with provider review"
+        visual="services"
+        visualLabel="Illustration of service categories, provider review, and laboratory request timing"
       />
 
       <section className="public-section" aria-labelledby="service-categories-title">
@@ -28,8 +29,8 @@ export function ServicesPage() {
           <SectionHeader
             eyebrow="Service categories"
             id="service-categories-title"
-            lede="These categories describe the public experience and do not create service selection, intake, prescription, lab ordering, scheduling, or checkout workflows."
-            title="What Plunge Care can organize"
+            lede="Each category begins with information from the patient. A provider determines what care, if any, is appropriate."
+            title="Care paths designed for clear next steps"
           />
           <div className="public-grid">
             {serviceCategories.map((item) => (
@@ -49,16 +50,15 @@ export function ServicesPage() {
             <p className="public-eyebrow">Provider review</p>
             <h2 id="review-title">Clinical appropriateness is determined by a provider</h2>
             <p>
-              Public service content avoids diagnosis, prescription, treatment, or approval guarantees. A provider
-              reviews submitted information before clinical next steps are determined.
+              A provider reviews the details shared with the request before determining whether care, testing, or
+              another next step is appropriate.
             </p>
           </article>
           <article className="public-card">
             <p className="public-eyebrow">Laboratory requests</p>
             <h2>Laboratory pricing stays protected before review</h2>
             <p>
-              Laboratory request content does not list a lab menu or estimated lab pricing. The required safeguard is:
-              No charge until provider review.
+              Laboratory requests are reviewed before any lab charge appears. No charge until provider review.
             </p>
           </article>
         </div>
@@ -69,8 +69,8 @@ export function ServicesPage() {
           <SectionHeader
             eyebrow="Process"
             id="service-process-title"
-            lede="The process is informational in Phase 3. Secure workflows belong to later phases."
-            title="A high-level care path"
+            lede="Share your care needs, receive provider review, and follow guidance based on that review."
+            title="A simple care path"
           />
           <ol className="public-process">
             {careProcessSteps.map((step) => (

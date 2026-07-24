@@ -1,4 +1,4 @@
-import { LinkButton, StatusBadge } from "../../components/ui";
+import { LinkButton } from "../../components/ui";
 import { pricingItems, pricingPrinciples, publicCtas } from "../../lib/publicContent";
 import { publicRoutes } from "../../lib/routes";
 import { PageHero, PublicPageShell, SectionHeader } from "./pageHelpers";
@@ -18,18 +18,19 @@ export function PricingPage() {
           </>
         )}
         eyebrow="Pricing"
-        lede="Approved public pricing values are display content only. Totals, platform-fee math, tax, discounts, coupons, and payment processing are not calculated in the browser."
-        title="Clear pricing timing, no browser-side calculations"
-        visualLabel="Illustrative pricing visual showing warning status for payment required and no lab charge before review"
+        lede="See when charges are presented, what listed fees cover, and how laboratory requests are handled after provider review."
+        title="Clear pricing timing before payment"
+        visual="pricing"
+        visualLabel="Illustration of pricing timing, provider fees, and laboratory review safeguards"
       />
 
       <section className="public-section" aria-labelledby="pricing-values-title">
         <div className="public-container">
           <SectionHeader
-            eyebrow="Approved display values"
+            eyebrow="Pricing basics"
             id="pricing-values-title"
-            lede="These values come from the approved pricing model in AGENTS.md and are centralized as content. They are not combined into totals."
-            title="What the public site may display"
+            lede="These values are shown as separate pricing references. Any applicable final charge is presented before payment."
+            title="What patients can expect to see"
           />
           <div className="public-pricing-list">
             {pricingItems.map((item) => (
@@ -50,8 +51,8 @@ export function PricingPage() {
           <SectionHeader
             eyebrow="Safeguards"
             id="pricing-principles-title"
-            lede="Financial messaging stays explanatory and avoids checkout, Stripe, coupons, taxes, refunds, or calculators."
-            title="Payment safeguards remain visible"
+            lede="Pricing is easiest to understand when provider fees, platform fees, and lab request timing stay clear."
+            title="Payment timing that is easier to understand"
           />
           <div className="public-grid">
             {pricingPrinciples.map((item) => (
@@ -64,17 +65,15 @@ export function PricingPage() {
         </div>
       </section>
 
-      <section className="public-section" aria-labelledby="payment-status-title">
+      <section className="public-section" aria-labelledby="lab-charge-title">
         <div className="public-container public-grid public-grid--two">
-          <div className="public-note" aria-labelledby="payment-status-title">
-            <h2 id="payment-status-title">Payment required stays amber</h2>
-            <p>
-              <StatusBadge status="payment-required" /> Payment required is a warning state, not a danger state.
-            </p>
-          </div>
           <div className="public-note" aria-labelledby="lab-charge-title">
             <h2 id="lab-charge-title">Laboratory request timing</h2>
             <p>No charge until provider review.</p>
+          </div>
+          <div className="public-note public-note--info" aria-labelledby="provider-fees-title">
+            <h2 id="provider-fees-title">Provider fees</h2>
+            <p>Provider fees may vary and are shown before payment when they apply.</p>
           </div>
         </div>
       </section>

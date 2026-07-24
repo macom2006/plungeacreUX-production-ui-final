@@ -1,3 +1,4 @@
+import brandMarkUrl from "../../assets/plunge-care-logo.png";
 import { footerDescription } from "../../lib/publicContent";
 import { footerGroups } from "../../lib/routes";
 import "./PublicFooter.css";
@@ -8,8 +9,8 @@ export function PublicFooter() {
       <div className="public-footer__inner">
         <div className="public-footer__brand">
           <a className="public-footer__wordmark" href="/" aria-label="Plunge Care home">
-            <span className="public-footer__mark" aria-hidden="true">P</span>
-            <span>
+            <img alt="" aria-hidden="true" className="public-footer__mark" src={brandMarkUrl} />
+            <span aria-hidden="true">
               <span>Plunge</span>
               <span>Care</span>
             </span>
@@ -32,7 +33,7 @@ export function PublicFooter() {
           ))}
         </div>
         <p className="public-footer__copyright">
-          Copyright 2026 Plunge Care. Public website foundation.
+          Copyright 2026 Plunge Care. All rights reserved.
         </p>
       </div>
     </footer>

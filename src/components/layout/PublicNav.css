@@ -28,14 +28,8 @@
 }
 
 .public-nav__mark {
-  align-items: center;
-  background: var(--color-brand-navy);
-  border-radius: var(--radius-md);
-  color: var(--color-text-inverse);
-  display: inline-flex;
-  font-size: var(--font-size-md);
+  display: block;
   height: 2.25rem;
-  justify-content: center;
   width: 2.25rem;
 }
 
