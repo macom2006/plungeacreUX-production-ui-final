@@ -6,8 +6,9 @@
 }
 
 .portal-shell__sidebar {
-  background: var(--color-brand-navy);
-  color: var(--color-text-inverse);
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  color: var(--color-primary);
   display: flex;
   flex-direction: column;
   gap: var(--space-8);
@@ -16,7 +17,7 @@
 
 .portal-shell__brand {
   align-items: center;
-  color: var(--color-text-inverse);
+  color: var(--color-brand-navy);
   display: inline-flex;
   font-size: var(--font-size-lg);
   font-weight: 800;
@@ -27,9 +28,9 @@
 
 .portal-shell__mark {
   align-items: center;
-  background: var(--color-surface);
+  background: var(--color-brand-navy);
   border-radius: var(--radius-md);
-  color: var(--color-brand-navy);
+  color: var(--color-text-inverse);
   display: inline-flex;
   font-size: var(--font-size-sm);
   height: 2.25rem;
@@ -44,7 +45,7 @@
 
 .portal-shell__nav a {
   border-radius: var(--radius-md);
-  color: var(--color-text-inverse);
+  color: var(--color-primary);
   min-height: 44px;
   padding: var(--space-3) var(--space-4);
   text-decoration: none;
@@ -52,7 +53,7 @@
 
 .portal-shell__nav a[aria-current="page"],
 .portal-shell__nav a:hover {
-  background: rgb(255 255 255 / 14%);
+  background: var(--color-info-soft);
 }
 
 .portal-shell__body {
