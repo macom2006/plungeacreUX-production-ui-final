@@ -218,7 +218,7 @@
 }
 
 .radio-group legend {
-  color: var(--color-text);
+  color: var(--color-brand-navy);
   font-family: var(--font-heading);
   font-weight: var(--font-weight-semibold);
   padding: 0;

@@ -1,8 +1,15 @@
 import { useEffect } from "react";
 import { applyRouteMetadata } from "./lib/documentMeta";
-import { developmentRoutes, publicRoutes, routeMetadata, temporaryRoutes } from "./lib/routes";
+import {
+  developmentRoutes,
+  getRouteMetadata,
+  isPatientPortalPath,
+  publicRoutes,
+  temporaryRoutes,
+} from "./lib/routes";
 import { ComponentShowcase } from "./pages/ComponentShowcase";
 import { FoundationPreview } from "./pages/FoundationPreview";
+import { PatientPortalRouter } from "./pages/patient/PatientPortalRouter";
 import { PortalPreview } from "./pages/PortalPreview";
 import {
   FaqPage,
@@ -16,7 +23,7 @@ import {
 
 export default function App() {
   const pathname = window.location.pathname;
-  const metadata = routeMetadata[pathname as keyof typeof routeMetadata] ?? routeMetadata.notFound;
+  const metadata = getRouteMetadata(pathname);
 
   useEffect(() => {
     applyRouteMetadata(metadata, pathname);
@@ -56,6 +63,10 @@ export default function App() {
 
   if (pathname === developmentRoutes.foundationPortal) {
     return <PortalPreview />;
+  }
+
+  if (isPatientPortalPath(pathname)) {
+    return <PatientPortalRouter pathname={pathname} />;
   }
 
   return <NotFoundPage />;

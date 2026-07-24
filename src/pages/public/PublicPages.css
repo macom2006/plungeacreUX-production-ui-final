@@ -260,6 +260,7 @@
 }
 
 .public-visual__card strong {
+  color: var(--color-brand-navy);
   font-family: var(--font-heading);
   font-weight: var(--font-weight-semibold);
 }
@@ -313,7 +314,7 @@
 
 .public-card h2,
 .public-card h3 {
-  color: inherit;
+  color: var(--color-brand-navy);
   font-family: var(--font-heading);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
@@ -326,6 +327,11 @@
 
 .public-card--navy p {
   color: rgb(255 255 255 / 80%);
+}
+
+.public-card--navy h2,
+.public-card--navy h3 {
+  color: var(--color-text-inverse);
 }
 
 .public-card__link {
@@ -374,6 +380,7 @@
 }
 
 .public-process h3 {
+  color: var(--color-brand-navy);
   font-family: var(--font-heading);
   font-weight: var(--font-weight-semibold);
 }
@@ -406,6 +413,7 @@
 
 .public-pricing-item h2,
 .public-pricing-item h3 {
+  color: var(--color-brand-navy);
   font-family: var(--font-heading);
   font-weight: var(--font-weight-semibold);
 }
@@ -444,6 +452,7 @@
 
 .public-note h2,
 .public-note h3 {
+  color: var(--color-brand-navy);
   font-family: var(--font-heading);
   font-weight: var(--font-weight-semibold);
 }
