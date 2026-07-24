@@ -1,0 +1,156 @@
+.tabs {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.tabs__list {
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+}
+
+.tabs__tab {
+  background: transparent;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-weight: 800;
+  min-height: 44px;
+  padding: var(--space-3) var(--space-4);
+  white-space: nowrap;
+}
+
+.tabs__tab[aria-selected="true"] {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.tabs__tab:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.tabs__panel {
+  min-width: 0;
+}
+
+.breadcrumbs ol,
+.pagination ol,
+.progress-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.breadcrumbs li + li::before {
+  color: var(--color-text-subtle);
+  content: "/";
+  margin-right: var(--space-2);
+}
+
+.pagination {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: space-between;
+}
+
+.pagination__controls,
+.pagination__controls ol {
+  align-items: center;
+  display: flex;
+  gap: var(--space-2);
+}
+
+.pagination__summary,
+.pagination__page-size {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.progress-steps {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.progress-steps--vertical {
+  display: grid;
+}
+
+.progress-steps__item {
+  align-items: flex-start;
+  display: flex;
+  flex: 1;
+  gap: var(--space-3);
+}
+
+.progress-steps__marker {
+  align-items: center;
+  background: var(--color-surface-soft);
+  border: 2px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-weight: 800;
+  height: 44px;
+  justify-content: center;
+  width: 44px;
+}
+
+.progress-steps__item--completed .progress-steps__marker {
+  background: var(--color-success-soft);
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.progress-steps__item--current .progress-steps__marker {
+  background: var(--color-info-soft);
+  border-color: var(--color-info);
+  color: var(--color-info);
+}
+
+.progress-steps__item--error .progress-steps__marker {
+  background: var(--color-danger-soft);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.progress-steps__label {
+  display: block;
+  font-weight: 800;
+}
+
+.progress-steps__description {
+  color: var(--color-text-muted);
+  display: block;
+  font-size: var(--font-size-sm);
+}
+
+@media (max-width: 720px) {
+  .pagination,
+  .pagination__controls {
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .pagination__controls ol {
+    display: none;
+  }
+
+  .pagination__controls .button {
+    flex: 1;
+  }
+
+  .progress-steps {
+    display: grid;
+  }
+}

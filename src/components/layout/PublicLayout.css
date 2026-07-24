@@ -1,0 +1,26 @@
+.public-layout {
+  background: var(--color-page);
+  min-height: 100vh;
+}
+
+.public-layout__main {
+  margin-inline: auto;
+  max-width: var(--content-width);
+  padding: clamp(var(--space-4), 4vw, var(--space-10));
+}
+
+.public-layout__footer {
+  background: var(--color-brand-navy);
+  color: var(--color-text-inverse);
+  padding: var(--space-8) clamp(var(--space-4), 4vw, var(--space-10));
+}
+
+.public-layout__footer > div {
+  margin-inline: auto;
+  max-width: var(--content-width);
+}
+
+.public-layout__footer p {
+  color: rgb(255 255 255 / 78%);
+  margin-bottom: 0;
+}

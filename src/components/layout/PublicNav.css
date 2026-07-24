@@ -9,6 +9,10 @@
   padding: var(--space-3) clamp(var(--space-4), 4vw, var(--space-10));
 }
 
+.public-nav__menu {
+  display: none;
+}
+
 .public-nav__brand {
   align-items: center;
   color: var(--color-brand-navy);
@@ -61,10 +65,19 @@
     grid-template-columns: 1fr auto;
   }
 
+  .public-nav__menu {
+    display: inline-flex;
+  }
+
   .public-nav__links {
+    display: none;
     grid-column: 1 / -1;
     justify-content: flex-start;
     overflow-x: auto;
+  }
+
+  .public-nav__links[data-open="true"] {
+    display: flex;
   }
 }
 

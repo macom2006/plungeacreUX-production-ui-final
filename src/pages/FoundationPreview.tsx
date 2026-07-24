@@ -1,5 +1,5 @@
 import { CareStatusCard } from "../components/healthcare";
-import { PortalShell, PublicNav } from "../components/layout";
+import { PublicLayout } from "../components/layout";
 import { Button, Card, StatusBadge } from "../components/ui";
 import "./FoundationPreview.css";
 
@@ -44,17 +44,12 @@ const statuses = [
 
 export function FoundationPreview() {
   return (
-    <>
-      <a className="skip-link" href="#main-content">
-        Skip to content
-      </a>
-      <PublicNav />
-      <PortalShell pageTitle="Production UI foundation">
+    <PublicLayout>
         <div className="foundation-preview">
           <section className="foundation-preview__intro" aria-labelledby="foundation-title">
             <div>
               <p className="foundation-preview__kicker">Phase 1</p>
-              <h2 id="foundation-title">Shared shell, tokens, and primitives</h2>
+              <h1 id="foundation-title">Shared shell, tokens, and primitives</h1>
               <p>
                 This preview route demonstrates the reusable visual foundation
                 for future Plunge Care patient, provider, and admin work.
@@ -66,6 +61,22 @@ export function FoundationPreview() {
               <Button variant="ghost">Ghost action</Button>
               <Button variant="danger">Danger action</Button>
               <Button disabled>Disabled action</Button>
+              <Button
+                onClick={() => {
+                  window.location.href = "/foundation/components";
+                }}
+                variant="outline"
+              >
+                Component showcase
+              </Button>
+              <Button
+                onClick={() => {
+                  window.location.href = "/foundation/portal";
+                }}
+                variant="link"
+              >
+                Portal shell preview
+              </Button>
             </div>
           </section>
 
@@ -114,7 +125,6 @@ export function FoundationPreview() {
             </div>
           </section>
         </div>
-      </PortalShell>
-    </>
+    </PublicLayout>
   );
 }
