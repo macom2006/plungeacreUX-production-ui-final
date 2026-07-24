@@ -15,6 +15,15 @@ const focusableSelector = [
   "[tabindex]:not([tabindex='-1'])",
 ].join(",");
 
+export function mergeIds(...values: Array<false | null | string | undefined>) {
+  const ids = values
+    .flatMap((value) => (typeof value === "string" ? value.split(/\s+/) : []))
+    .filter(Boolean);
+  const uniqueIds = Array.from(new Set(ids));
+
+  return uniqueIds.length > 0 ? uniqueIds.join(" ") : undefined;
+}
+
 export function getFocusableElements(container: HTMLElement | null) {
   if (!container) return [];
   return Array.from(container.querySelectorAll<HTMLElement>(focusableSelector))

@@ -8,8 +8,9 @@ export type {
 } from "./CareRequestCard";
 export { CareStatusCard } from "./CareStatusCard";
 export type { CareStatusCardProps } from "./CareStatusCard";
-export { CareTimeline } from "./CareTimeline";
+export { CareTimeline, createCareTimelineEvents } from "./CareTimeline";
 export type {
+  CareTimelineEvent,
   CareTimelineProps,
   CareTimelineStepState,
   CareTimelineVariant,

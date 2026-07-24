@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe } from "jest-axe";
 import { useState } from "react";
@@ -6,8 +6,11 @@ import { describe, expect, it, vi } from "vitest";
 import {
   BillingSummary,
   CareRequestCard,
+  CareTimeline,
+  PatientContextCard,
 } from "../components/healthcare";
 import {
+  Avatar,
   Button,
   Checkbox,
   ConfirmationDialog,
@@ -33,6 +36,14 @@ import {
 } from "../components/ui";
 
 type InertCapableElement = HTMLElement & { inert: boolean };
+
+function describedByIds(element: HTMLElement) {
+  return element.getAttribute("aria-describedby")?.split(/\s+/).filter(Boolean) ?? [];
+}
+
+function expectUniqueIds(ids: string[]) {
+  expect(new Set(ids).size).toBe(ids.length);
+}
 
 describe("Phase 2 shared UI behavior", () => {
   it("keeps Button loading disabled, busy, described, and non-activating", async () => {
@@ -110,6 +121,122 @@ describe("Phase 2 shared UI behavior", () => {
     expect(state).toBeRequired();
     expect(notes).toBeRequired();
     expect(email.id).not.toBe(recoveryEmail.id);
+  });
+
+  it("merges Input caller, FormField, error, and loading descriptions without duplicates", () => {
+    render(
+      <>
+        <p id="custom-input-description">Custom lookup context.</p>
+        <FormField
+          description="Use the server supplied patient identifier."
+          error="Patient identifier is required."
+          id="patient-lookup"
+          label="Patient lookup"
+        >
+          <Input
+            aria-describedby="custom-input-description patient-lookup-description"
+            loading
+            loadingLabel="Checking patient lookup"
+            type="text"
+          />
+        </FormField>
+      </>,
+    );
+
+    const input = screen.getByLabelText("Patient lookup");
+    const loadingId = screen.getByText("Checking patient lookup").id;
+    const ids = describedByIds(input);
+
+    expect(ids).toEqual(expect.arrayContaining([
+      "patient-lookup-description",
+      "patient-lookup-error",
+      "custom-input-description",
+      loadingId,
+    ]));
+    expectUniqueIds(ids);
+    expect(input).toHaveAttribute("aria-invalid", "true");
+    expect(input).toHaveAccessibleDescription(/server supplied patient identifier.*required.*Custom lookup.*Checking patient lookup/);
+  });
+
+  it("merges Select caller and FormField descriptions", () => {
+    render(
+      <>
+        <p id="custom-select-description">Custom select context.</p>
+        <FormField
+          description="Choose the server supplied state."
+          id="state-field"
+          label="State"
+        >
+          <Select
+            aria-describedby="custom-select-description"
+            options={[{ label: "Florida", value: "FL" }]}
+          />
+        </FormField>
+      </>,
+    );
+
+    const select = screen.getByLabelText("State");
+    const ids = describedByIds(select);
+
+    expect(ids).toEqual(expect.arrayContaining([
+      "state-field-description",
+      "custom-select-description",
+    ]));
+    expectUniqueIds(ids);
+  });
+
+  it("keeps Textarea error and character-count descriptions together", () => {
+    render(
+      <FormField
+        characterCount="0 / 160"
+        error="Note is required."
+        id="care-note"
+        label="Care note"
+      >
+        <Textarea />
+      </FormField>,
+    );
+
+    const textarea = screen.getByLabelText("Care note");
+    const ids = describedByIds(textarea);
+
+    expect(ids).toEqual(expect.arrayContaining(["care-note-error", "care-note-count"]));
+    expectUniqueIds(ids);
+    expect(textarea).toHaveAttribute("aria-invalid", "true");
+  });
+
+  it("merges Checkbox built-in and caller descriptions", () => {
+    render(
+      <>
+        <p id="custom-checkbox-description">Custom checkbox context.</p>
+        <Checkbox
+          aria-describedby="custom-checkbox-description"
+          description="Built-in checkbox description."
+          id="consent-checkbox"
+          label="Confirm review"
+        />
+      </>,
+    );
+
+    const checkbox = screen.getByRole("checkbox", { name: "Confirm review" });
+    const ids = describedByIds(checkbox);
+
+    expect(ids).toEqual(expect.arrayContaining([
+      "consent-checkbox-description",
+      "custom-checkbox-description",
+    ]));
+    expectUniqueIds(ids);
+    expect(checkbox).toHaveAccessibleDescription(/Built-in checkbox description.*Custom checkbox context/);
+  });
+
+  it("preserves caller aria-invalid values when FormField has no error", () => {
+    render(
+      <FormField id="spelling-field" label="Spelling-sensitive field">
+        <Input aria-invalid="spelling" />
+      </FormField>,
+    );
+
+    expect(screen.getByLabelText("Spelling-sensitive field")).toHaveAttribute("aria-invalid", "spelling");
   });
 
   it("keeps Checkbox and Radio controls label-activating with compact native inputs", async () => {
@@ -567,6 +694,134 @@ describe("Phase 2 shared UI behavior", () => {
     await user.keyboard("{Escape}");
     expect(onConfirm).not.toHaveBeenCalled();
     expect(onCancel).not.toHaveBeenCalled();
+  });
+
+  it("renders Avatar images with accessible names when the image is meaningful", () => {
+    render(<Avatar alt="Provider portrait" initials="PP" src="/provider.png" />);
+
+    const image = screen.getByRole("img", { name: "Provider portrait" });
+    expect(image).toHaveAttribute("src", "/provider.png");
+  });
+
+  it("falls Avatar images back to initials after image load failure", () => {
+    const { container } = render(<Avatar alt="Provider portrait" initials="PP" src="/missing-provider.png" />);
+
+    fireEvent.error(screen.getByRole("img", { name: "Provider portrait" }));
+
+    expect(container.querySelectorAll("img")).toHaveLength(0);
+    expect(screen.getByText("PP")).toBeVisible();
+    expect(screen.getByText("Provider portrait")).toHaveClass("sr-only");
+  });
+
+  it("supports decorative Avatar images when an adjacent name labels the identity", () => {
+    const { container } = render(
+      <div>
+        <Avatar decorative initials="EP" src="/example-person.png" />
+        <span>Example Person</span>
+      </div>,
+    );
+
+    expect(container.querySelector("img")).toHaveAttribute("alt", "");
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+    expect(screen.getByText("Example Person")).toBeVisible();
+  });
+
+  it("renders CareTimeline caller events with ordered-list, time, description, state text, and aria-current semantics", () => {
+    render(
+      <CareTimeline
+        events={[
+          {
+            category: "Request",
+            dateTime: "2026-07-01T09:00:00-05:00",
+            description: (
+              <p>
+                Caller supplied description with enough length to verify wrapping and semantic rendering.
+              </p>
+            ),
+            id: "submitted",
+            state: "complete",
+            timestamp: "Jul 1, 2026 at 9:00 AM",
+            title: <span>Caller submitted request</span>,
+          },
+          {
+            description: "Provider review is underway.",
+            id: "review",
+            state: "current",
+            timestamp: "Today",
+            title: "Pending review",
+          },
+          {
+            id: "upcoming",
+            state: "upcoming",
+            title: "Payment required",
+          },
+          {
+            description: "Failed states include visible text and do not rely on red alone.",
+            id: "failed",
+            state: "failed",
+            title: "Payment failed",
+          },
+        ]}
+      />,
+    );
+
+    const list = screen.getByRole("list");
+    const items = within(list).getAllByRole("listitem");
+    const submittedTime = within(items[0]).getByText("Jul 1, 2026 at 9:00 AM");
+
+    expect(list.tagName).toBe("OL");
+    expect(items).toHaveLength(4);
+    expect(within(items[0]).getByText("Caller submitted request")).toBeVisible();
+    expect(submittedTime.tagName).toBe("TIME");
+    expect(submittedTime).toHaveAttribute("dateTime", "2026-07-01T09:00:00-05:00");
+    expect(within(items[0]).getByText(/enough length to verify wrapping/)).toBeVisible();
+    expect(within(items[0]).getByText("State: Complete")).toBeVisible();
+    expect(items[1]).toHaveAttribute("aria-current", "step");
+    expect(within(items[1]).getByText("State: Current")).toBeVisible();
+    expect(within(items[2]).getByText("State: Upcoming")).toBeVisible();
+    expect(within(items[3]).getByText("State: Failed")).toBeVisible();
+  });
+
+  it("renders PatientContextCard identity with Avatar and supplied server context", () => {
+    const { container } = render(
+      <PatientContextCard
+        patient={{
+          age: "Server supplied",
+          allergies: "Allergy information supplied by server",
+          avatarSrc: "/patient.png",
+          conditions: "Condition information supplied by server",
+          contactDetails: "Secure message available",
+          dateOfBirth: "Server supplied",
+          initials: "EP",
+          name: "Example Person",
+          pharmacy: "Preferred pharmacy supplied by server",
+          state: "FL",
+        }}
+      />,
+    );
+
+    expect(screen.getByRole("heading", { name: "Patient context" })).toBeVisible();
+    expect(screen.getByText("Example Person")).toBeVisible();
+    expect(container.querySelector(".patient-context img")).toHaveAttribute("alt", "");
+    expect(screen.getByText("Secure message available")).toBeVisible();
+    expect(screen.getByText("Allergy information supplied by server")).toBeVisible();
+    expect(screen.queryByText(/Sensitive data|Missing data/)).not.toBeInTheDocument();
+  });
+
+  it("uses a safe PatientContextCard empty state without repetitive missing rows", () => {
+    render(<PatientContextCard patient={{}} />);
+
+    expect(screen.getByText("Patient context not provided.")).toBeVisible();
+    expect(screen.queryByText(/Sensitive data|Missing data/)).not.toBeInTheDocument();
+    expect(screen.queryAllByRole("term")).toHaveLength(0);
+  });
+
+  it("does not infer optional PatientContextCard demographic or clinical rows", () => {
+    render(<PatientContextCard patient={{ name: "Example Person" }} />);
+
+    expect(screen.getByText("Example Person")).toBeVisible();
+    expect(screen.getByText("Additional patient context not provided.")).toBeVisible();
+    expect(screen.queryByText(/Pronouns|Demographic context|Allergies|Conditions|Pharmacy|Contact details/)).not.toBeInTheDocument();
   });
 
   it("displays BillingSummary caller-supplied values without pricing calculations", () => {

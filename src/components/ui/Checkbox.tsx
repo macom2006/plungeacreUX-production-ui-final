@@ -6,7 +6,7 @@ import {
   type InputHTMLAttributes,
   type ReactNode,
 } from "react";
-import { useComposedRefs } from "../../lib/a11y";
+import { mergeIds, useComposedRefs } from "../../lib/a11y";
 import { cn } from "../../lib/cn";
 import "./Form.css";
 
@@ -24,14 +24,20 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
     indeterminate = false,
     invalid = false,
     label,
+    "aria-describedby": ariaDescribedBy,
+    "aria-invalid": ariaInvalid,
+    disabled,
+    id: providedId,
     ...props
   },
   ref,
 ) {
   const generatedId = useId();
-  const id = props.id ?? `checkbox-${generatedId}`;
+  const id = providedId ?? `checkbox-${generatedId}`;
   const labelId = `${id}-label`;
   const descriptionId = description ? `${id}-description` : undefined;
+  const describedBy = mergeIds(descriptionId, ariaDescribedBy);
+  const resolvedInvalid = invalid ? true : ariaInvalid;
   const inputRef = useRef<HTMLInputElement | null>(null);
   const composedRef = useComposedRefs(inputRef, ref);
 
@@ -42,16 +48,17 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
   }, [indeterminate]);
 
   return (
-    <label className={cn("choice", invalid && "choice--invalid", props.disabled && "choice--disabled", className)} htmlFor={id}>
+    <label className={cn("choice", invalid && "choice--invalid", disabled && "choice--disabled", className)} htmlFor={id}>
       <input
-        aria-describedby={descriptionId}
-        aria-invalid={invalid || undefined}
+        {...props}
+        aria-describedby={describedBy}
+        aria-invalid={resolvedInvalid}
         aria-labelledby={labelId}
         className="choice__input"
+        disabled={disabled}
         id={id}
         ref={composedRef}
         type="checkbox"
-        {...props}
       />
       <div>
         <span className="choice__label" id={labelId}>

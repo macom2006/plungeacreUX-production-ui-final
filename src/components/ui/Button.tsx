@@ -1,4 +1,5 @@
 import { forwardRef, useId, type ButtonHTMLAttributes, type ReactNode } from "react";
+import { mergeIds } from "../../lib/a11y";
 import { cn } from "../../lib/cn";
 import { Spinner } from "./Spinner";
 import "./Button.css";
@@ -36,9 +37,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   ref,
 ) {
   const loadingDescriptionId = useId();
-  const describedBy = [ariaDescribedBy, loading ? loadingDescriptionId : undefined]
-    .filter(Boolean)
-    .join(" ") || undefined;
+  const describedBy = mergeIds(ariaDescribedBy, loading ? loadingDescriptionId : undefined);
   const hasTextChild = typeof children === "string" || typeof children === "number";
   const iconOnly = size === "icon" && !hasTextChild && !props["aria-label"];
 

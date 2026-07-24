@@ -65,15 +65,18 @@
 }
 
 .care-timeline__step {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   gap: var(--space-3);
+  min-width: 0;
 }
 
 .care-timeline__marker {
   border: 2px solid var(--color-border-strong);
   border-radius: var(--radius-pill);
+  flex: 0 0 auto;
   height: 1rem;
+  margin-top: var(--space-1);
   width: 1rem;
 }
 
@@ -94,6 +97,64 @@
 
 .care-timeline__label {
   font-weight: 800;
+}
+
+.care-timeline__content {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.care-timeline__heading {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.care-timeline__state {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+}
+
+.care-timeline__meta {
+  color: var(--color-text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: var(--font-size-sm);
+  gap: var(--space-2);
+}
+
+.care-timeline__description {
+  color: var(--color-text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.care-timeline__description p {
+  margin: 0;
+}
+
+.patient-context__identity {
+  align-items: center;
+  display: flex;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.patient-context__identity h4,
+.patient-context__identity p,
+.patient-context__empty {
+  margin: 0;
+}
+
+.patient-context__identity h4 {
+  font-size: var(--font-size-lg);
+}
+
+.patient-context__identity p,
+.patient-context__empty {
+  color: var(--color-text-muted);
 }
 
 .patient-context--compact .description-list {

@@ -363,7 +363,7 @@ export function ComponentShowcase() {
               items={[
                 { label: "Patient", value: "Example Person" },
                 { label: "State", value: "FL" },
-                { label: "Missing data", value: "Not provided" },
+                { label: "Preference", value: "Not provided" },
               ]}
             />
           </ShowcaseSection>
@@ -390,19 +390,53 @@ export function ComponentShowcase() {
               />
               <PatientContextCard
                 patient={{
-                  allergies: "Sensitive data label",
-                  conditions: "Missing data",
-                  contactDetails: "Sensitive data",
-                  dateOfBirth: "Sensitive data",
+                  age: "Server supplied",
+                  allergies: "No allergies supplied",
+                  conditions: "No conditions supplied",
+                  contactDetails: "Secure message available",
+                  dateOfBirth: "Server supplied",
+                  initials: "EP",
                   name: "Example Person",
-                  pharmacy: "Missing data",
+                  pharmacy: "Not provided",
                   state: "FL",
                 }}
               />
             </div>
             <CareTimeline
-              states={["complete", "current", "upcoming", "upcoming", "upcoming"]}
-              variant="laboratory"
+              events={[
+                {
+                  category: "Request",
+                  dateTime: "2026-07-01T09:00:00-05:00",
+                  description: "The request was submitted with the required intake information supplied by the patient.",
+                  id: "submitted",
+                  state: "complete",
+                  timestamp: "Jul 1, 2026 at 9:00 AM",
+                  title: "Submitted",
+                },
+                {
+                  category: "Clinical review",
+                  dateTime: "2026-07-01T13:30:00-05:00",
+                  description: "A provider is reviewing eligibility and next steps before any follow-up action is shown.",
+                  id: "pending-review",
+                  state: "current",
+                  timestamp: "Jul 1, 2026 at 1:30 PM",
+                  title: "Pending review",
+                },
+                {
+                  category: "Billing",
+                  description: "Server-supplied payment status would appear here when available.",
+                  id: "payment-required",
+                  state: "upcoming",
+                  title: "Payment required",
+                },
+                {
+                  category: "Decision",
+                  description: "This illustrates a failed terminal status without relying on red alone.",
+                  id: "payment-failed",
+                  state: "failed",
+                  title: "Payment failed",
+                },
+              ]}
             />
             <BillingSummary
               lineItems={[

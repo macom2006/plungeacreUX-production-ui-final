@@ -1,4 +1,5 @@
 import { forwardRef, useId, useState, type InputHTMLAttributes, type ReactNode } from "react";
+import { mergeIds } from "../../lib/a11y";
 import { cn } from "../../lib/cn";
 import { Button } from "./Button";
 import { Spinner } from "./Spinner";
@@ -27,6 +28,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     loadingLabel = "Loading input",
     onClear,
     rightIcon,
+    "aria-describedby": ariaDescribedBy,
+    "aria-invalid": ariaInvalid,
+    id,
+    readOnly,
     required,
     type = "text",
     ...props
@@ -37,17 +42,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   const loadingId = useId();
   const [showPassword, setShowPassword] = useState(false);
   const resolvedType = type === "password" && showPassword ? "text" : type;
-  const canClear = type === "search" && onClear && !disabled && !props.readOnly;
+  const canClear = type === "search" && onClear && !disabled && !readOnly;
   const endActionCount = [
     loading,
     canClear,
     type === "password",
     Boolean(rightIcon),
   ].filter(Boolean).length;
-  const describedBy = [
-    props["aria-describedby"] ?? field?.describedBy,
-    loading ? loadingId : undefined,
-  ].filter(Boolean).join(" ") || undefined;
+  const describedBy = mergeIds(field?.describedBy, ariaDescribedBy, loading ? loadingId : undefined);
+  const invalid = field?.isInvalid ? true : ariaInvalid;
   const resolvedRequired = required ?? field?.required;
 
   return (
@@ -65,15 +68,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     >
       {leftIcon ? <span className="form-control__icon form-control__icon--left" aria-hidden="true">{leftIcon}</span> : null}
       <input
+        {...props}
         aria-describedby={describedBy}
-        aria-invalid={props["aria-invalid"] ?? (field?.isInvalid || undefined)}
+        aria-invalid={invalid}
         className="form-control__input"
         disabled={disabled}
-        id={props.id ?? field?.id}
+        id={id ?? field?.id}
+        readOnly={readOnly}
         ref={ref}
         required={resolvedRequired}
         type={resolvedType}
-        {...props}
       />
       <span className="form-control__actions">
         {loading ? (
