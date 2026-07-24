@@ -60,6 +60,10 @@
   margin: 0;
 }
 
+.patient-page__hero h2 {
+  color: var(--color-text-inverse);
+}
+
 .patient-page__heading p,
 .patient-page__hero p,
 .patient-page__section-copy,

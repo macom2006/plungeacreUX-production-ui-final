@@ -68,6 +68,20 @@ function collectCssFiles(directory: string): string[] {
   });
 }
 
+function collectAppStyleSourceFiles(directory: string): string[] {
+  return readdirSync(directory).flatMap((entry) => {
+    const pathname = join(directory, entry);
+    const stats = statSync(pathname);
+
+    if (stats.isDirectory()) {
+      if (entry === "test") return [];
+      return collectAppStyleSourceFiles(pathname);
+    }
+
+    return /\.(css|tsx)$/.test(pathname) ? [pathname] : [];
+  });
+}
+
 function extractCssRule(css: string, selector: string) {
   const start = css.indexOf(`${selector} {`);
 
@@ -199,6 +213,56 @@ describe("locked typography contract", () => {
     expect(extractCssRule(dataDisplay, ".data-table th")).toContain("font-weight: var(--font-weight-semibold)");
     expect(extractCssRule(card, ".card__title")).toContain("font-family: var(--font-heading)");
     expect(extractCssRule(card, ".card__title")).toContain("font-weight: var(--font-weight-semibold)");
+  });
+
+  it("routes public titles and shared title primitives to the deep navy token", () => {
+    const globals = readProjectFile("src/styles/globals.css");
+    const publicPages = readProjectFile("src/pages/public/PublicPages.css");
+    const publicNav = readProjectFile("src/components/layout/PublicNav.css");
+    const publicFooter = readProjectFile("src/components/layout/PublicFooter.css");
+    const accordion = readProjectFile("src/components/ui/Accordion.css");
+    const card = readProjectFile("src/components/ui/Card.css");
+    const foundationPreview = readProjectFile("src/pages/FoundationPreview.css");
+    const portalShell = readProjectFile("src/components/layout/PortalShell.css");
+
+    expect(globals).toMatch(/h1,\s*h2,\s*h3,\s*h4,\s*h5,\s*h6\s*\{[^}]*color: var\(--color-brand-navy\);/s);
+    expect(publicPages).toMatch(/\.public-hero h1\s*\{[^}]*color: var\(--color-brand-navy\);/s);
+    expect(publicPages).toMatch(/\.public-section__header h2\s*\{[^}]*color: var\(--color-brand-navy\);/s);
+    expect(publicPages).toMatch(/\.public-card h2,\s*\.public-card h3\s*\{[^}]*color: var\(--color-brand-navy\);/s);
+    expect(publicPages).toMatch(/\.public-process h3\s*\{[^}]*color: var\(--color-brand-navy\);/s);
+    expect(publicPages).toMatch(
+      /\.public-pricing-item h2,\s*\.public-pricing-item h3\s*\{[^}]*color: var\(--color-brand-navy\);/s,
+    );
+    expect(publicPages).toMatch(/\.public-note h2,\s*\.public-note h3\s*\{[^}]*color: var\(--color-brand-navy\);/s);
+    expect(publicPages).toMatch(/\.public-faq-group h2\s*\{[^}]*color: var\(--color-brand-navy\);/s);
+    expect(publicPages).toMatch(/\.public-card--navy h2,\s*\.public-card--navy h3\s*\{[^}]*color: var\(--color-text-inverse\);/s);
+    expect(publicNav).toMatch(/\.public-nav__links a,\s*\.public-nav__links a:visited\s*\{[^}]*color: var\(--color-brand-navy\);/s);
+    expect(publicNav).toMatch(
+      /\.public-nav__drawer-links a,\s*\.public-nav__drawer-links a:visited\s*\{[^}]*color: var\(--color-brand-navy\);/s,
+    );
+    expect(publicFooter).toMatch(/\.public-footer__group h2\s*\{[^}]*color: var\(--color-text-inverse\);/s);
+    expect(accordion).toMatch(/\.accordion__trigger\s*\{[^}]*color: var\(--color-brand-navy\);/s);
+    expect(accordion).toMatch(
+      /\.accordion__trigger:hover,\s*\.accordion__trigger:active,\s*\.accordion__trigger:focus-visible,\s*\.accordion__trigger\[aria-expanded="true"\]\s*\{[^}]*color: var\(--color-brand-navy\);/s,
+    );
+    expect(card).toMatch(/\.card__title\s*\{[^}]*color: var\(--color-brand-navy\);/s);
+    expect(foundationPreview).toMatch(/\.foundation-preview h1\s*\{[^}]*color: var\(--color-brand-navy\);/s);
+    expect(foundationPreview).toMatch(/\.foundation-preview h2\s*\{[^}]*color: var\(--color-brand-navy\);/s);
+    expect(portalShell).toMatch(/\.portal-shell__topbar h1\s*\{[^}]*color: var\(--color-brand-navy\);/s);
+  });
+
+  it("does not hardcode black title colors in application styles or markup", () => {
+    const sourceFiles = collectAppStyleSourceFiles(sourceRoot);
+    const prohibitedBlackColor = /#(?:000|000000)\b|text-black|(?:^|[\s:"'])black(?:[\s;"')}]|$)/i;
+
+    sourceFiles.forEach((file) => {
+      const source = readFileSync(file, "utf8");
+      const displayPath = relative(workspaceRoot, file);
+
+      expect(source, `${displayPath} should use semantic color tokens instead of hardcoded black`).not.toMatch(
+        prohibitedBlackColor,
+      );
+    });
   });
 
   it.each(routePaths)("uses Title Case for visible headings and titles on %s", (route) => {

@@ -94,6 +94,7 @@
 }
 
 .portal-shell__topbar h1 {
+  color: var(--color-brand-navy);
   font-family: var(--font-heading);
   font-weight: var(--font-weight-bold);
 }

@@ -55,6 +55,7 @@
 
 .dialog h2,
 .drawer h2 {
+  color: var(--color-brand-navy);
   font-family: var(--font-heading);
   font-weight: var(--font-weight-bold);
 }
