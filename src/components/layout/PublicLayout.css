@@ -6,6 +6,7 @@
 .public-layout__main {
   margin-inline: auto;
   max-width: var(--content-width);
+  min-width: 0;
   padding: clamp(var(--space-4), 4vw, var(--space-10));
 }
 

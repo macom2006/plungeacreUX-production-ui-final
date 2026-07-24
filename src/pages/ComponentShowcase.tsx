@@ -16,7 +16,9 @@ import {
   DataTable,
   DataTableBody,
   DataTableCell,
+  DataTableCaption,
   DataTableHeader,
+  DataTableHeaderCell,
   DataTableRow,
   DescriptionList,
   Dialog,
@@ -27,13 +29,13 @@ import {
   Input,
   MobileRecordCard,
   Pagination,
-  ProgressSteps,
   RadioGroup,
   Select,
   Skeleton,
   SortableHeader,
   Spinner,
   StatusBadge,
+  Stepper,
   Switch,
   Tabs,
   Textarea,
@@ -190,6 +192,63 @@ export function ComponentShowcase() {
             />
           </ShowcaseSection>
 
+          <ShowcaseSection title="Filters">
+            <FilterBar
+              activeFilterCount={search || status !== "all" ? 1 : 0}
+              additionalFilters={
+                <Select
+                  aria-label="Filter by owner"
+                  options={[
+                    { label: "All owners", value: "all" },
+                    { label: "Care team", value: "team" },
+                    { label: "Provider", value: "provider" },
+                  ]}
+                  defaultValue="all"
+                />
+              }
+              dateFilter={<Input aria-label="Submitted after" type="date" />}
+              onClearAll={() => {
+                setSearch("");
+                setStatus("all");
+              }}
+              onOpenFilters={() => setDrawerOpen(true)}
+              onSearchChange={setSearch}
+              onStatusChange={setStatus}
+              searchValue={search}
+              statusOptions={statusOptions}
+              statusValue={status}
+            />
+            <div className="showcase-filter-preview showcase-filter-preview--drawer" aria-label="Drawer filter preview">
+              <FilterBar
+                activeFilterCount={search || status !== "all" ? 1 : 0}
+                layout="drawer"
+                onClearAll={() => {
+                  setSearch("");
+                  setStatus("all");
+                }}
+                onOpenFilters={() => setDrawerOpen(true)}
+                onSearchChange={setSearch}
+                onStatusChange={setStatus}
+                searchValue={search}
+                statusOptions={statusOptions}
+                statusValue={status}
+              />
+            </div>
+            <div className="showcase-filter-preview showcase-filter-preview--narrow" aria-label="Narrow mobile filter preview">
+              <FilterBar
+                activeFilterCount={0}
+                layout="compact"
+                onClearAll={() => undefined}
+                onOpenFilters={() => setDrawerOpen(true)}
+                onSearchChange={setSearch}
+                onStatusChange={setStatus}
+                searchValue=""
+                statusOptions={statusOptions}
+                statusValue="all"
+              />
+            </div>
+          </ShowcaseSection>
+
           <ShowcaseSection title="Overlays">
             <div className="showcase-row">
               <Button onClick={() => setDialogOpen(true)}>Open dialog</Button>
@@ -227,6 +286,7 @@ export function ComponentShowcase() {
             >
               <FilterBar
                 activeFilterCount={search || status !== "all" ? 1 : 0}
+                layout="drawer"
                 onClearAll={() => {
                   setSearch("");
                   setStatus("all");
@@ -245,10 +305,10 @@ export function ComponentShowcase() {
               tabs={[
                 { content: <p>Overview content with long text that wraps safely.</p>, id: "overview", label: "Overview" },
                 { content: <p>Details content.</p>, id: "details", label: "Details" },
-                { content: <p>History content.</p>, id: "history", label: "History" },
+                { content: <p>History content.</p>, disabled: true, id: "history", label: "History" },
               ]}
             />
-            <ProgressSteps
+            <Stepper
               steps={[
                 { label: "Profile", state: "completed" },
                 { label: "License", state: "current" },
@@ -266,11 +326,12 @@ export function ComponentShowcase() {
 
           <ShowcaseSection title="Data display">
             <DataTable>
+              <DataTableCaption>Preview request records with native table semantics.</DataTableCaption>
               <DataTableHeader>
                 <DataTableRow>
                   <SortableHeader direction="ascending">Request</SortableHeader>
                   <SortableHeader>Status</SortableHeader>
-                  <SortableHeader>Owner</SortableHeader>
+                  <DataTableHeaderCell>Owner</DataTableHeaderCell>
                 </DataTableRow>
               </DataTableHeader>
               <DataTableBody>
@@ -297,6 +358,8 @@ export function ComponentShowcase() {
               </Tooltip>
             </div>
             <DescriptionList
+              columns="multi"
+              density="compact"
               items={[
                 { label: "Patient", value: "Example Person" },
                 { label: "State", value: "FL" },
@@ -308,11 +371,21 @@ export function ComponentShowcase() {
           <ShowcaseSection title="Healthcare foundations">
             <div className="showcase-grid showcase-grid--two">
               <CareRequestCard
-                requestId="REQ-FOUNDATION"
+                providerReviewState="not-reviewed"
+                requestId="REQ-LAB-SUBMITTED"
+                service="laboratory"
+                status="submitted"
+                submittedDate="Today"
+                summary="Illustrative lab request copy with no estimated laboratory amount."
+                title="Submitted lab request"
+              />
+              <CareRequestCard
+                providerReviewState="not-reviewed"
+                requestId="REQ-LAB-REVIEW"
                 service="laboratory"
                 status="pending-review"
                 submittedDate="Today"
-                summary="Illustrative lab request copy with no estimated laboratory amount."
+                summary="Illustrative lab request copy awaiting provider review."
                 title="Lab review request"
               />
               <PatientContextCard

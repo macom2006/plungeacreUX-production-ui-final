@@ -1,4 +1,4 @@
-import { useId, type ButtonHTMLAttributes, type ReactNode } from "react";
+import { forwardRef, useId, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { cn } from "../../lib/cn";
 import { Spinner } from "./Spinner";
 import "./Button.css";
@@ -17,21 +17,24 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
 }
 
-export function Button({
-  children,
-  className,
-  disabled,
-  fullWidth = false,
-  leftIcon,
-  loading = false,
-  loadingLabel = "Loading",
-  rightIcon,
-  size = "md",
-  variant = "primary",
-  type = "button",
-  "aria-describedby": ariaDescribedBy,
-  ...props
-}: ButtonProps) {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  {
+    children,
+    className,
+    disabled,
+    fullWidth = false,
+    leftIcon,
+    loading = false,
+    loadingLabel = "Loading",
+    rightIcon,
+    size = "md",
+    variant = "primary",
+    type = "button",
+    "aria-describedby": ariaDescribedBy,
+    ...props
+  },
+  ref,
+) {
   const loadingDescriptionId = useId();
   const describedBy = [ariaDescribedBy, loading ? loadingDescriptionId : undefined]
     .filter(Boolean)
@@ -57,6 +60,7 @@ export function Button({
           className,
         )}
         disabled={disabled || loading}
+        ref={ref}
         type={type}
         {...props}
       >
@@ -78,4 +82,4 @@ export function Button({
       ) : null}
     </>
   );
-}
+});

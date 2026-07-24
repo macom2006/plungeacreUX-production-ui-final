@@ -117,7 +117,7 @@
   padding-top: var(--space-3);
 }
 
-@media (max-width: 720px) {
+@media (max-width: 820px) {
   .care-request-card__header,
   .care-request-card__meta {
     grid-template-columns: 1fr;
@@ -125,5 +125,11 @@
 
   .care-request-card__header {
     flex-direction: column;
+  }
+
+  .billing-summary dl div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--space-1);
   }
 }

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
 import { Button } from "./Button";
 import { Dialog } from "./Dialog";
 import "./Overlay.css";
@@ -29,21 +29,24 @@ export function ConfirmationDialog({
   tone = "standard",
 }: ConfirmationDialogProps) {
   const destructive = tone === "danger";
+  const cancelRef = useRef<HTMLButtonElement | null>(null);
 
   return (
     <Dialog
-      closeOnOverlayClick={!loading}
+      closeOnOverlayClick={false}
       description={`Confirm ${actionName}`}
+      initialFocusRef={cancelRef}
       isOpen={isOpen}
       onClose={onCancel}
       preventEscapeClose={loading}
+      showCloseButton={!loading}
       size="sm"
       title={title}
     >
       <div className={`confirmation confirmation--${tone}`}>
         <p>{consequence}</p>
         <div className="confirmation__actions">
-          <Button disabled={loading} onClick={onCancel} variant="secondary">
+          <Button disabled={loading} onClick={onCancel} ref={cancelRef} variant="secondary">
             {cancelLabel}
           </Button>
           <Button

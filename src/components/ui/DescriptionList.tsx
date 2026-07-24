@@ -9,12 +9,19 @@ export interface DescriptionListItem {
 
 export interface DescriptionListProps {
   className?: string;
+  columns?: "single" | "multi";
+  density?: "standard" | "compact";
   items: DescriptionListItem[];
 }
 
-export function DescriptionList({ className, items }: DescriptionListProps) {
+export function DescriptionList({
+  className,
+  columns = "single",
+  density = "standard",
+  items,
+}: DescriptionListProps) {
   return (
-    <dl className={cn("description-list", className)}>
+    <dl className={cn("description-list", `description-list--${columns}`, `description-list--${density}`, className)}>
       {items.map((item) => (
         <div key={item.label}>
           <dt>{item.label}</dt>

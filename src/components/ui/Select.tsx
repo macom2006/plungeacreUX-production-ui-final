@@ -1,4 +1,4 @@
-import type { SelectHTMLAttributes } from "react";
+import { forwardRef, type SelectHTMLAttributes } from "react";
 import { cn } from "../../lib/cn";
 import { useFormField } from "./FormField";
 import "./Form.css";
@@ -14,13 +14,18 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   placeholder?: string;
 }
 
-export function Select({
-  className,
-  options,
-  placeholder,
-  ...props
-}: SelectProps) {
+export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
+  {
+    className,
+    options,
+    placeholder,
+    required,
+    ...props
+  },
+  ref,
+) {
   const field = useFormField();
+  const resolvedRequired = required ?? field?.required;
 
   return (
     <div className={cn("select-wrap", field?.isInvalid && "select-wrap--invalid", className)}>
@@ -29,6 +34,8 @@ export function Select({
         aria-invalid={props["aria-invalid"] ?? (field?.isInvalid || undefined)}
         className="select-wrap__select"
         id={props.id ?? field?.id}
+        ref={ref}
+        required={resolvedRequired}
         {...props}
       >
         {placeholder ? <option value="">{placeholder}</option> : null}
@@ -40,4 +47,4 @@ export function Select({
       </select>
     </div>
   );
-}
+});

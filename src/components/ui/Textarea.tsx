@@ -1,4 +1,4 @@
-import type { TextareaHTMLAttributes } from "react";
+import { forwardRef, type TextareaHTMLAttributes } from "react";
 import { cn } from "../../lib/cn";
 import { useFormField } from "./FormField";
 import "./Form.css";
@@ -7,12 +7,17 @@ export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
   resize?: "none" | "vertical" | "both";
 }
 
-export function Textarea({
-  className,
-  resize = "vertical",
-  ...props
-}: TextareaProps) {
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
+  {
+    className,
+    required,
+    resize = "vertical",
+    ...props
+  },
+  ref,
+) {
   const field = useFormField();
+  const resolvedRequired = required ?? field?.required;
 
   return (
     <textarea
@@ -26,7 +31,9 @@ export function Textarea({
         className,
       )}
       id={props.id ?? field?.id}
+      ref={ref}
+      required={resolvedRequired}
       {...props}
     />
   );
-}
+});

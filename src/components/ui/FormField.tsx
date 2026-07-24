@@ -14,6 +14,7 @@ interface FormFieldContextValue {
   id: string;
   isInvalid: boolean;
   isSuccess: boolean;
+  required: boolean;
 }
 
 const FormFieldContext = createContext<FormFieldContextValue | null>(null);
@@ -63,6 +64,7 @@ export function FormField({
         id: controlId,
         isInvalid: Boolean(error),
         isSuccess: Boolean(success) && !error,
+        required,
       }}
     >
       <div className={cn("form-field", className)} {...props}>

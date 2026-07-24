@@ -72,9 +72,13 @@ export function RadioGroup({
       <div className="radio-group__options" onKeyDown={handleKeyDown}>
         {options.map((option, index) => {
           const id = `${generatedId}-${option.value}`;
+          const labelId = `${id}-label`;
+          const optionDescriptionId = option.description ? `${id}-description` : undefined;
           return (
-            <div className="choice" key={option.value}>
+            <label className="choice" htmlFor={id} key={option.value}>
               <input
+                aria-describedby={optionDescriptionId}
+                aria-labelledby={labelId}
                 checked={selectedValue === option.value}
                 className="choice__input"
                 disabled={disabled || option.disabled}
@@ -88,14 +92,14 @@ export function RadioGroup({
                 value={option.value}
               />
               <div>
-                <label className="choice__label" htmlFor={id}>
+                <span className="choice__label" id={labelId}>
                   {option.label}
-                </label>
+                </span>
                 {option.description ? (
-                  <p className="choice__description">{option.description}</p>
+                  <p className="choice__description" id={optionDescriptionId}>{option.description}</p>
                 ) : null}
               </div>
-            </div>
+            </label>
           );
         })}
       </div>

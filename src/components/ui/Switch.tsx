@@ -21,6 +21,7 @@ export function Switch({
 }: SwitchProps) {
   const id = useId();
   const descriptionId = description ? `${id}-description` : undefined;
+  const labelId = `${id}-label`;
   const toggle = () => {
     if (!disabled) onChange(!checked);
   };
@@ -30,12 +31,13 @@ export function Switch({
       <button
         aria-checked={checked}
         aria-describedby={descriptionId}
+        aria-labelledby={labelId}
         className="switch-field__control"
         disabled={disabled}
         id={id}
         onClick={toggle}
         onKeyDown={(event) => {
-          if (event.key === " " || event.key === "Enter") {
+          if (event.key === " " || event.key === "Space" || event.key === "Spacebar") {
             event.preventDefault();
             toggle();
           }
@@ -46,9 +48,9 @@ export function Switch({
         <span aria-hidden="true" />
       </button>
       <div>
-        <label className="switch-field__label" htmlFor={id}>
+        <span className="switch-field__label" id={labelId}>
           {label}
-        </label>
+        </span>
         {description ? (
           <p className="switch-field__description" id={descriptionId}>
             {description}

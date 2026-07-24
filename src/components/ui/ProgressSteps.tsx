@@ -41,3 +41,8 @@ export function ProgressSteps({
     </ol>
   );
 }
+
+export function Stepper(props: ProgressStepsProps) {
+  // Canonical public name for stepped progress; ProgressSteps remains as a compatible alias.
+  return <ProgressSteps {...props} />;
+}

@@ -3,8 +3,9 @@ import { Card, StatusBadge, type CareStatus } from "../ui";
 import "./Healthcare.css";
 
 export type CareService = "prescription" | "laboratory" | "consultation";
+export type ProviderReviewState = "not-reviewed" | "reviewed";
 
-export interface CareRequestCardProps {
+interface BaseCareRequestCardProps {
   primaryAction?: ReactNode;
   provider?: string;
   requestId: string;
@@ -16,9 +17,26 @@ export interface CareRequestCardProps {
   title: string;
 }
 
+interface LaboratoryCareRequestCardProps extends BaseCareRequestCardProps {
+  estimatedPrice?: never;
+  providerReviewState: ProviderReviewState;
+  provisionalTotal?: never;
+  service: "laboratory";
+}
+
+interface NonLaboratoryCareRequestCardProps extends BaseCareRequestCardProps {
+  providerReviewState?: never;
+  service: Exclude<CareService, "laboratory">;
+}
+
+export type CareRequestCardProps =
+  | LaboratoryCareRequestCardProps
+  | NonLaboratoryCareRequestCardProps;
+
 export function CareRequestCard({
   primaryAction,
   provider,
+  providerReviewState,
   requestId,
   secondaryAction,
   service,
@@ -27,7 +45,7 @@ export function CareRequestCard({
   summary,
   title,
 }: CareRequestCardProps) {
-  const showLabNoChargeCopy = service === "laboratory" && status === "pending-review";
+  const showLabNoChargeCopy = service === "laboratory" && providerReviewState === "not-reviewed";
 
   return (
     <Card className="care-request-card">

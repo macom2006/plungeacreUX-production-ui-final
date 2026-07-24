@@ -57,10 +57,11 @@
 
 .public-nav__actions {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-3);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1120px) {
   .public-nav {
     grid-template-columns: 1fr auto;
   }
@@ -78,6 +79,11 @@
 
   .public-nav__links[data-open="true"] {
     display: flex;
+  }
+
+  .public-nav__actions {
+    grid-column: 1 / -1;
+    justify-self: start;
   }
 }
 

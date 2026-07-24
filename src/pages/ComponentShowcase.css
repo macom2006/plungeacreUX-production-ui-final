@@ -1,11 +1,16 @@
 .component-showcase {
   display: grid;
   gap: var(--space-10);
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .component-showcase__header {
   display: grid;
   gap: var(--space-3);
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
 }
 
 .component-showcase__header h1,
@@ -31,12 +36,16 @@
   border-radius: var(--radius-lg);
   display: grid;
   gap: var(--space-5);
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
   padding: var(--space-6);
 }
 
 .showcase-section__content {
   display: grid;
   gap: var(--space-5);
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
 }
 
 .showcase-row {
@@ -49,10 +58,26 @@
 .showcase-grid {
   display: grid;
   gap: var(--space-4);
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
 }
 
 .showcase-grid--two {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.showcase-filter-preview {
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.showcase-filter-preview--drawer {
+  max-width: 28rem;
+}
+
+.showcase-filter-preview--narrow {
+  max-width: 24.375rem;
 }
 
 @media (max-width: 768px) {

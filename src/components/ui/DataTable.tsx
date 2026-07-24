@@ -52,6 +52,10 @@ export function DataTableHeader({ children }: { children: ReactNode }) {
   return <thead>{children}</thead>;
 }
 
+export function DataTableCaption({ children }: { children: ReactNode }) {
+  return <caption className="data-table__caption">{children}</caption>;
+}
+
 export function DataTableBody({ children }: { children: ReactNode }) {
   return <tbody>{children}</tbody>;
 }
@@ -80,7 +84,24 @@ export function DataTableCell({
   );
 }
 
-export interface SortableHeaderProps extends ThHTMLAttributes<HTMLTableCellElement> {
+export interface DataTableHeaderCellProps extends ThHTMLAttributes<HTMLTableCellElement> {
+  scope?: "col" | "row" | "colgroup" | "rowgroup";
+}
+
+export function DataTableHeaderCell({
+  children,
+  className,
+  scope = "col",
+  ...props
+}: DataTableHeaderCellProps) {
+  return (
+    <th className={cn("data-table__header", className)} scope={scope} {...props}>
+      {children}
+    </th>
+  );
+}
+
+export interface SortableHeaderProps extends Omit<ThHTMLAttributes<HTMLTableCellElement>, "scope"> {
   direction?: "ascending" | "descending" | "none";
   onSort?: () => void;
 }
@@ -93,7 +114,7 @@ export function SortableHeader({
   ...props
 }: SortableHeaderProps) {
   return (
-    <th aria-sort={direction} className={cn("data-table__header", className)} scope="col" {...props}>
+    <DataTableHeaderCell aria-sort={direction} className={className} scope="col" {...props}>
       {onSort ? (
         <button className="data-table__sort" onClick={onSort} type="button">
           {children}
@@ -102,7 +123,7 @@ export function SortableHeader({
       ) : (
         children
       )}
-    </th>
+    </DataTableHeaderCell>
   );
 }
 

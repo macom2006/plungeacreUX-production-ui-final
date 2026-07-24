@@ -1,6 +1,6 @@
-import { useEffect, useId, type ReactNode } from "react";
+import { useEffect, useId, type ReactNode, type RefObject } from "react";
 import { createPortal } from "react-dom";
-import { useBodyScrollLock, useFocusTrap } from "../../lib/a11y";
+import { useBodyScrollLock, useFocusTrap, useModalIsolation } from "../../lib/a11y";
 import { cn } from "../../lib/cn";
 import { Button } from "./Button";
 import "./Overlay.css";
@@ -10,9 +10,11 @@ export interface DialogProps {
   className?: string;
   closeOnOverlayClick?: boolean;
   description?: ReactNode;
+  initialFocusRef?: RefObject<HTMLElement | null>;
   isOpen: boolean;
   onClose: () => void;
   preventEscapeClose?: boolean;
+  showCloseButton?: boolean;
   size?: "sm" | "md" | "lg";
   title: ReactNode;
 }
@@ -22,16 +24,19 @@ export function Dialog({
   className,
   closeOnOverlayClick = true,
   description,
+  initialFocusRef,
   isOpen,
   onClose,
   preventEscapeClose = false,
+  showCloseButton = true,
   size = "md",
   title,
 }: DialogProps) {
   const titleId = useId();
   const descriptionId = description ? `${titleId}-description` : undefined;
-  const containerRef = useFocusTrap<HTMLDivElement>(isOpen);
+  const containerRef = useFocusTrap<HTMLDivElement>(isOpen, initialFocusRef);
   useBodyScrollLock(isOpen);
+  useModalIsolation(isOpen);
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -47,8 +52,9 @@ export function Dialog({
   return createPortal(
     <div
       className="overlay"
+      data-modal-root="true"
       onMouseDown={(event) => {
-        if (closeOnOverlayClick && event.target === event.currentTarget) onClose();
+        if (closeOnOverlayClick && !preventEscapeClose && event.target === event.currentTarget) onClose();
       }}
     >
       <div
@@ -65,9 +71,11 @@ export function Dialog({
             <h2 id={titleId}>{title}</h2>
             {description ? <p id={descriptionId}>{description}</p> : null}
           </div>
-          <Button aria-label="Close dialog" onClick={onClose} size="icon" variant="ghost">
-            x
-          </Button>
+          {showCloseButton ? (
+            <Button aria-label="Close dialog" onClick={onClose} size="icon" variant="ghost">
+              x
+            </Button>
+          ) : null}
         </div>
         {children}
       </div>

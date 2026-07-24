@@ -1,10 +1,12 @@
 import {
+  forwardRef,
   useEffect,
   useId,
   useRef,
   type InputHTMLAttributes,
   type ReactNode,
 } from "react";
+import { useComposedRefs } from "../../lib/a11y";
 import { cn } from "../../lib/cn";
 import "./Form.css";
 
@@ -15,18 +17,23 @@ export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement
   label: ReactNode;
 }
 
-export function Checkbox({
-  className,
-  description,
-  indeterminate = false,
-  invalid = false,
-  label,
-  ...props
-}: CheckboxProps) {
+export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
+  {
+    className,
+    description,
+    indeterminate = false,
+    invalid = false,
+    label,
+    ...props
+  },
+  ref,
+) {
   const generatedId = useId();
   const id = props.id ?? `checkbox-${generatedId}`;
+  const labelId = `${id}-label`;
   const descriptionId = description ? `${id}-description` : undefined;
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const composedRef = useComposedRefs(inputRef, ref);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -35,26 +42,27 @@ export function Checkbox({
   }, [indeterminate]);
 
   return (
-    <div className={cn("choice", invalid && "choice--invalid", className)}>
+    <label className={cn("choice", invalid && "choice--invalid", props.disabled && "choice--disabled", className)} htmlFor={id}>
       <input
         aria-describedby={descriptionId}
         aria-invalid={invalid || undefined}
+        aria-labelledby={labelId}
         className="choice__input"
         id={id}
-        ref={inputRef}
+        ref={composedRef}
         type="checkbox"
         {...props}
       />
       <div>
-        <label className="choice__label" htmlFor={id}>
+        <span className="choice__label" id={labelId}>
           {label}
-        </label>
+        </span>
         {description ? (
           <p className="choice__description" id={descriptionId}>
             {description}
           </p>
         ) : null}
       </div>
-    </div>
+    </label>
   );
-}
+});

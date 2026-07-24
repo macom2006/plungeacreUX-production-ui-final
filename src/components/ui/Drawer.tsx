@@ -1,6 +1,6 @@
-import { useEffect, useId, type ReactNode } from "react";
+import { useEffect, useId, type ReactNode, type RefObject } from "react";
 import { createPortal } from "react-dom";
-import { useBodyScrollLock, useFocusTrap } from "../../lib/a11y";
+import { useBodyScrollLock, useFocusTrap, useModalIsolation } from "../../lib/a11y";
 import { cn } from "../../lib/cn";
 import { Button } from "./Button";
 import "./Overlay.css";
@@ -10,6 +10,7 @@ export interface DrawerProps {
   className?: string;
   description?: ReactNode;
   id?: string;
+  initialFocusRef?: RefObject<HTMLElement | null>;
   isOpen: boolean;
   onClose: () => void;
   position?: "left" | "right" | "bottom";
@@ -21,6 +22,7 @@ export function Drawer({
   className,
   description,
   id,
+  initialFocusRef,
   isOpen,
   onClose,
   position = "right",
@@ -28,8 +30,9 @@ export function Drawer({
 }: DrawerProps) {
   const titleId = useId();
   const descriptionId = description ? `${titleId}-description` : undefined;
-  const containerRef = useFocusTrap<HTMLElement>(isOpen);
+  const containerRef = useFocusTrap<HTMLElement>(isOpen, initialFocusRef);
   useBodyScrollLock(isOpen);
+  useModalIsolation(isOpen);
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -43,7 +46,7 @@ export function Drawer({
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="overlay overlay--drawer">
+    <div className="overlay overlay--drawer" data-modal-root="true">
       <aside
         aria-describedby={descriptionId}
         aria-labelledby={titleId}

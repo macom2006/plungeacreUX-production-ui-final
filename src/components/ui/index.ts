@@ -16,7 +16,9 @@ export {
   DataTable,
   DataTableBody,
   DataTableCell,
+  DataTableCaption,
   DataTableHeader,
+  DataTableHeaderCell,
   DataTableRow,
   DefaultTableEmptyState,
   SelectableRowCell,
@@ -25,6 +27,7 @@ export {
 export type {
   DataTableProps,
   DataTableRowProps,
+  DataTableHeaderCellProps,
   SelectableRowCellProps,
   SortableHeaderProps,
 } from "./DataTable";
@@ -46,7 +49,7 @@ export { MobileRecordCard } from "./MobileRecordCard";
 export type { MobileRecordCardProps, RecordField } from "./MobileRecordCard";
 export { Pagination } from "./Pagination";
 export type { PaginationProps } from "./Pagination";
-export { ProgressSteps } from "./ProgressSteps";
+export { ProgressSteps, Stepper } from "./ProgressSteps";
 export type { ProgressStep, ProgressStepsProps, ProgressStepState } from "./ProgressSteps";
 export { RadioGroup } from "./RadioGroup";
 export type { RadioGroupProps, RadioOption } from "./RadioGroup";
