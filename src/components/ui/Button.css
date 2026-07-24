@@ -9,12 +9,17 @@
   justify-content: center;
   min-height: 44px;
   min-width: 44px;
+  position: relative;
   text-decoration: none;
   transition:
     background-color var(--motion-fast) ease,
     border-color var(--motion-fast) ease,
     color var(--motion-fast) ease,
     box-shadow var(--motion-fast) ease;
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(1px);
 }
 
 .button:disabled {
@@ -37,6 +42,15 @@
   padding: var(--space-4) var(--space-6);
 }
 
+.button--icon {
+  aspect-ratio: 1;
+  padding: var(--space-2);
+}
+
+.button--full {
+  width: 100%;
+}
+
 .button--primary {
   background: var(--color-primary);
   color: var(--color-text-inverse);
@@ -56,6 +70,16 @@
   background: var(--color-surface-soft);
 }
 
+.button--outline {
+  background: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.button--outline:hover:not(:disabled) {
+  background: var(--color-info-soft);
+}
+
 .button--ghost {
   background: transparent;
   color: var(--color-primary);
@@ -72,4 +96,41 @@
 
 .button--danger:hover:not(:disabled) {
   background: var(--color-danger-hover);
+}
+
+.button--link {
+  background: transparent;
+  color: var(--color-action);
+  min-height: 44px;
+  padding-inline: var(--space-2);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.button--link:hover:not(:disabled) {
+  color: var(--color-action-hover);
+}
+
+.button__content {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--space-2);
+  justify-content: center;
+  opacity: 1;
+}
+
+.button--loading .button__content {
+  opacity: 0;
+}
+
+.button__icon,
+.button__loading {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.button__loading {
+  inset: 0;
+  position: absolute;
 }

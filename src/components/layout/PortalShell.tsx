@@ -1,17 +1,71 @@
-import type { ReactNode } from "react";
-import { Button } from "../ui";
+import { useState, type ReactNode } from "react";
+import { Button, Drawer } from "../ui";
 import "./PortalShell.css";
 
-const navItems = ["Overview", "Care requests", "Messages", "Documents", "Settings"];
+export type PortalRole = "patient" | "provider" | "admin";
+
+export interface PortalNavItem {
+  href: string;
+  label: string;
+}
+
+const navByRole: Record<PortalRole, PortalNavItem[]> = {
+  admin: [
+    { href: "#overview", label: "Overview" },
+    { href: "#providers", label: "Providers" },
+    { href: "#licenses", label: "Licenses" },
+    { href: "#reports", label: "Reports" },
+    { href: "#settings", label: "Settings" },
+  ],
+  patient: [
+    { href: "#overview", label: "Overview" },
+    { href: "#care-requests", label: "Care requests" },
+    { href: "#messages", label: "Messages" },
+    { href: "#documents", label: "Documents" },
+    { href: "#settings", label: "Settings" },
+  ],
+  provider: [
+    { href: "#overview", label: "Overview" },
+    { href: "#queue", label: "Care queue" },
+    { href: "#patients", label: "Patients" },
+    { href: "#messages", label: "Messages" },
+    { href: "#settings", label: "Settings" },
+  ],
+};
 
 export interface PortalShellProps {
   children: ReactNode;
+  navItems?: PortalNavItem[];
   pageTitle: string;
+  role?: PortalRole;
 }
 
-export function PortalShell({ children, pageTitle }: PortalShellProps) {
+function PortalNavigation({ items }: { items: PortalNavItem[] }) {
+  return (
+    <nav className="portal-shell__nav" aria-label="Portal navigation">
+      {items.map((item, index) => (
+        <a aria-current={index === 0 ? "page" : undefined} href={item.href} key={item.href}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  );
+}
+
+export function PortalShell({
+  children,
+  navItems,
+  pageTitle,
+  role = "patient",
+}: PortalShellProps) {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const resolvedNav = navItems ?? navByRole[role];
+
   return (
     <div className="portal-shell">
+      <a className="skip-link" href="#portal-main-content">
+        Skip to content
+      </a>
       <aside className="portal-shell__sidebar" aria-label="Portal navigation">
         <a className="portal-shell__brand" href="/" aria-label="Plunge Care home">
           <span className="portal-shell__mark" aria-hidden="true">
@@ -19,24 +73,15 @@ export function PortalShell({ children, pageTitle }: PortalShellProps) {
           </span>
           <span>Plunge Care</span>
         </a>
-        <nav className="portal-shell__nav">
-          {navItems.map((item, index) => (
-            <a
-              aria-current={index === 0 ? "page" : undefined}
-              href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
-              key={item}
-            >
-              {item}
-            </a>
-          ))}
-        </nav>
+        <PortalNavigation items={resolvedNav} />
       </aside>
       <div className="portal-shell__body">
         <header className="portal-shell__topbar">
           <Button
             aria-controls="portal-mobile-navigation"
-            aria-expanded="false"
+            aria-expanded={drawerOpen}
             className="portal-shell__menu"
+            onClick={() => setDrawerOpen(true)}
             variant="secondary"
           >
             Menu
@@ -53,15 +98,20 @@ export function PortalShell({ children, pageTitle }: PortalShellProps) {
             </div>
           </div>
         </header>
-        <main className="portal-shell__main" id="main-content" tabIndex={-1}>
+        <main className="portal-shell__main" id="portal-main-content" tabIndex={-1}>
           {children}
         </main>
       </div>
-      <div
-        aria-hidden="true"
-        className="portal-shell__drawer-placeholder"
+      <Drawer
+        description="Portal navigation links. Clinical, payment, and approval actions are not available in this drawer."
         id="portal-mobile-navigation"
-      />
+        isOpen={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        position="left"
+        title="Portal navigation"
+      >
+        <PortalNavigation items={resolvedNav} />
+      </Drawer>
     </div>
   );
 }

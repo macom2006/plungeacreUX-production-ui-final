@@ -9,6 +9,10 @@
   padding: var(--space-3) clamp(var(--space-4), 4vw, var(--space-10));
 }
 
+.public-nav__menu {
+  display: none;
+}
+
 .public-nav__brand {
   align-items: center;
   color: var(--color-brand-navy);
@@ -53,18 +57,33 @@
 
 .public-nav__actions {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-3);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1120px) {
   .public-nav {
     grid-template-columns: 1fr auto;
   }
 
+  .public-nav__menu {
+    display: inline-flex;
+  }
+
   .public-nav__links {
+    display: none;
     grid-column: 1 / -1;
     justify-content: flex-start;
     overflow-x: auto;
+  }
+
+  .public-nav__links[data-open="true"] {
+    display: flex;
+  }
+
+  .public-nav__actions {
+    grid-column: 1 / -1;
+    justify-self: start;
   }
 }
 

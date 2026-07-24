@@ -1,0 +1,36 @@
+.spinner {
+  animation: spinner-rotate var(--motion-slow) linear infinite;
+  border: 2px solid currentColor;
+  border-radius: var(--radius-pill);
+  border-top-color: transparent;
+  color: currentColor;
+  display: inline-flex;
+}
+
+.spinner--sm {
+  height: 1rem;
+  width: 1rem;
+}
+
+.spinner--md {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.spinner--lg {
+  height: 2rem;
+  width: 2rem;
+}
+
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+    border-top-color: currentColor;
+  }
+}

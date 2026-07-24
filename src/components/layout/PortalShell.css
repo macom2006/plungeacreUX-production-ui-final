@@ -112,8 +112,7 @@
   padding: clamp(var(--space-4), 4vw, var(--space-10));
 }
 
-.portal-shell__menu,
-.portal-shell__drawer-placeholder {
+.portal-shell__menu {
   display: none;
 }
 

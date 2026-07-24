@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Button } from "../ui";
 import "./PublicNav.css";
 
 const navItems = ["Services", "For Providers", "Pricing", "FAQ"];
 
 export function PublicNav() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <header className="public-nav">
       <a className="public-nav__brand" href="/" aria-label="Plunge Care home">
@@ -12,7 +15,21 @@ export function PublicNav() {
         </span>
         <span>Plunge Care</span>
       </a>
-      <nav aria-label="Primary navigation" className="public-nav__links">
+      <Button
+        aria-controls="public-mobile-navigation"
+        aria-expanded={mobileOpen}
+        className="public-nav__menu"
+        onClick={() => setMobileOpen((open) => !open)}
+        variant="secondary"
+      >
+        Menu
+      </Button>
+      <nav
+        aria-label="Primary navigation"
+        className="public-nav__links"
+        data-open={mobileOpen}
+        id="public-mobile-navigation"
+      >
         {navItems.map((item) => (
           <a href={`#${item.toLowerCase().replace(/\s+/g, "-")}`} key={item}>
             {item}
