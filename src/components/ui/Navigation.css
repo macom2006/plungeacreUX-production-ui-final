@@ -18,7 +18,8 @@
   border-bottom: 3px solid transparent;
   color: var(--color-text-muted);
   cursor: pointer;
-  font-weight: 800;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
   min-height: 44px;
   padding: var(--space-3) var(--space-4);
   white-space: nowrap;
@@ -108,7 +109,8 @@
   border-radius: var(--radius-pill);
   display: inline-flex;
   flex: 0 0 auto;
-  font-weight: 800;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
   height: 44px;
   justify-content: center;
   width: 44px;
@@ -134,7 +136,8 @@
 
 .progress-steps__label {
   display: block;
-  font-weight: 800;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
 }
 
 .progress-steps__description {

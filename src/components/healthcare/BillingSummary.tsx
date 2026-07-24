@@ -14,7 +14,7 @@ export interface BillingSummaryProps {
 
 export function BillingSummary({
   lineItems,
-  title = "Billing summary",
+  title = "Billing Summary",
   total,
 }: BillingSummaryProps) {
   // All monetary values must be supplied by the server pricing resolver.

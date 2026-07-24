@@ -1,4 +1,10 @@
-import { forwardRef, useId, type ButtonHTMLAttributes, type ReactNode } from "react";
+import {
+  forwardRef,
+  useId,
+  type AnchorHTMLAttributes,
+  type ButtonHTMLAttributes,
+  type ReactNode,
+} from "react";
 import { mergeIds } from "../../lib/a11y";
 import { cn } from "../../lib/cn";
 import { Spinner } from "./Spinner";
@@ -13,6 +19,15 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   leftIcon?: ReactNode;
   loading?: boolean;
   loadingLabel?: string;
+  rightIcon?: ReactNode;
+  size?: ButtonSize;
+  variant?: ButtonVariant;
+}
+
+export interface LinkButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  children: ReactNode;
+  fullWidth?: boolean;
+  leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   size?: ButtonSize;
   variant?: ButtonVariant;
@@ -80,5 +95,39 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         </span>
       ) : null}
     </>
+  );
+});
+
+export const LinkButton = forwardRef<HTMLAnchorElement, LinkButtonProps>(function LinkButton(
+  {
+    children,
+    className,
+    fullWidth = false,
+    leftIcon,
+    rightIcon,
+    size = "md",
+    variant = "primary",
+    ...props
+  },
+  ref,
+) {
+  return (
+    <a
+      className={cn(
+        "button",
+        `button--${variant}`,
+        `button--${size}`,
+        fullWidth && "button--full",
+        className,
+      )}
+      ref={ref}
+      {...props}
+    >
+      <span className="button__content">
+        {leftIcon ? <span className="button__icon" aria-hidden="true">{leftIcon}</span> : null}
+        <span>{children}</span>
+        {rightIcon ? <span className="button__icon" aria-hidden="true">{rightIcon}</span> : null}
+      </span>
+    </a>
   );
 });

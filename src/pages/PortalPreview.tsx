@@ -5,12 +5,12 @@ import "./FoundationPreview.css";
 
 export function PortalPreview() {
   return (
-    <PortalShell pageTitle="Portal shell preview" role="patient">
+    <PortalShell pageTitle="Portal Shell Preview" role="patient">
       <div className="foundation-preview">
         <section className="foundation-preview__intro" aria-labelledby="portal-preview-title">
           <div>
-            <p className="foundation-preview__kicker">Phase 2 layout separation</p>
-            <h2 id="portal-preview-title">Portal shell only</h2>
+            <p className="foundation-preview__kicker">Phase 2 Layout Separation</p>
+            <h2 id="portal-preview-title">Portal Shell Only</h2>
             <p>
               This route demonstrates portal navigation without the public
               navbar. Tablet and mobile widths use the accessible drawer.
@@ -25,14 +25,14 @@ export function PortalPreview() {
         <div className="foundation-preview__grid">
           <CareStatusCard
             description="A request is ready for review by an eligible care team member."
-            status="Pending review"
-            title="Portal card example"
+            status="Pending Review"
+            title="Portal Card Example"
             tone="warning"
           />
           <CareStatusCard
             description="The request has cleared the current milestone."
             status="Approved"
-            title="Status example"
+            title="Status Example"
             tone="success"
           />
         </div>

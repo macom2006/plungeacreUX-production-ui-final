@@ -33,7 +33,7 @@ export function PatientContextCard({
 
   if (!patient || !hasPatientContext) {
     return (
-      <Card className={compact ? "patient-context patient-context--compact" : "patient-context"} title="Patient context">
+      <Card className={compact ? "patient-context patient-context--compact" : "patient-context"} title="Patient Context">
         <p className="patient-context__empty">Patient context not provided.</p>
       </Card>
     );
@@ -41,7 +41,7 @@ export function PatientContextCard({
 
   const initials = patient.initials ?? getInitials(patient.name) ?? "PC";
   const details: DescriptionListItem[] = [
-    patient.dateOfBirth ? { label: "Date of birth", value: patient.dateOfBirth } : undefined,
+    patient.dateOfBirth ? { label: "Date of Birth", value: patient.dateOfBirth } : undefined,
     patient.age ? { label: "Age", value: patient.age } : undefined,
     patient.pronouns ? { label: "Pronouns", value: patient.pronouns } : undefined,
     patient.demographicContext ? { label: "Demographic context", value: patient.demographicContext } : undefined,
@@ -53,7 +53,7 @@ export function PatientContextCard({
   ].filter(Boolean) as DescriptionListItem[];
 
   return (
-    <Card className={compact ? "patient-context patient-context--compact" : "patient-context"} title="Patient context">
+    <Card className={compact ? "patient-context patient-context--compact" : "patient-context"} title="Patient Context">
       <div className="patient-context__identity">
         <Avatar
           alt={patient.name ? undefined : "Patient avatar"}

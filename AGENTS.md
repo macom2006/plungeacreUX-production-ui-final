@@ -208,3 +208,125 @@ Before marking any phase complete:
 - Describe changed routes, components, APIs used, states covered, and tests run.
 - Note any backend dependency or unavailable data explicitly.
 - Do not claim completion when placeholders, hardcoded data, or unimplemented states remain.
+
+## 17. Locked Typography and Visible Title Casing
+
+Typography is locked across the entire Plunge Care application.
+
+### Font Families
+
+Headings and display text must use:
+
+`Sora, Inter, system-ui, sans-serif`
+
+Body copy, interface controls, labels, and data must use:
+
+`Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`
+
+Do not substitute, approximate, or introduce alternative typefaces anywhere in the system.
+
+### Approved Weights
+
+Sora may use only:
+
+- 600
+- 700
+- 800
+
+Inter may use only:
+
+- 400
+- 500
+- 600
+
+Do not use unsupported weights, faux bold, synthesized weights, or page-specific font substitutions.
+
+### Typography Responsibilities
+
+Use Sora for:
+
+- Page and hero titles
+- Section headings
+- Card titles
+- Panel titles
+- Dialog and drawer titles
+- Table captions and table titles
+- Form section titles
+- Empty-state titles
+- Timeline titles
+- Major display values
+
+Use Inter for:
+
+- Body copy
+- Navigation
+- Buttons
+- Labels
+- Form controls
+- Table column headers
+- Table data
+- Status badges
+- Tabs
+- Breadcrumbs
+- Pagination
+- Helper text
+- Validation messages
+- Metadata
+- Timestamps
+- Clinical and financial data
+
+### Visible Casing
+
+Visible interface headings and titles must use Title Case.
+
+This applies to:
+
+- Page titles
+- Hero titles
+- Section headings
+- Card titles
+- Panel titles
+- Table captions
+- Table column headers
+- Dialog titles
+- Drawer titles
+- Accordion category titles
+- Empty-state titles
+- Timeline event titles
+- Description-list section titles
+
+Use normal spaces between words.
+
+Do not expose programming-style camelCase or PascalCase strings in the user interface.
+
+Do not force all-uppercase headings or table headers.
+
+Preserve approved acronyms and proper names, including Plunge Care, FAQ, MFA, W-9, state abbreviations, medication names, and legally required terms.
+
+Paragraphs, descriptions, helper text, errors, buttons, and form labels should normally use natural sentence case unless they are functioning as a formal title.
+
+### Tokens
+
+All implementation must use the shared tokens:
+
+- `--font-heading`
+- `--font-body`
+- `--font-weight-regular`
+- `--font-weight-medium`
+- `--font-weight-semibold`
+- `--font-weight-bold`
+- `--font-weight-extrabold`
+
+Do not scatter raw font-family declarations or unsupported numeric font weights throughout component styles.
+
+### Acceptance
+
+Every future phase must verify:
+
+- Sora and Inter are actually loaded
+- Only approved weights are bundled
+- Heading and body roles use the correct tokens
+- Card and table titles use Title Case
+- Table headers use Inter 600 and Title Case
+- No visible camelCase strings appear
+- Typography remains readable at mobile widths and 200% reflow

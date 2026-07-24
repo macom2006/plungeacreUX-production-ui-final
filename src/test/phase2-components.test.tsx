@@ -333,12 +333,12 @@ describe("Phase 2 shared UI behavior", () => {
     );
 
     expect(screen.getByText("Submitted")).toHaveAttribute("data-tone", "information");
-    expect(screen.getByText("Pending review")).toHaveAttribute("data-tone", "warning");
-    expect(screen.getByText("Payment required")).toHaveAttribute("data-tone", "warning");
-    expect(screen.getByText("Payment required")).not.toHaveAttribute("data-tone", "danger");
+    expect(screen.getByText("Pending Review")).toHaveAttribute("data-tone", "warning");
+    expect(screen.getByText("Payment Required")).toHaveAttribute("data-tone", "warning");
+    expect(screen.getByText("Payment Required")).not.toHaveAttribute("data-tone", "danger");
     expect(screen.getByText("Approved")).toHaveAttribute("data-tone", "success");
     expect(screen.getByText("Declined")).toHaveAttribute("data-tone", "danger");
-    expect(screen.getByText("Payment failed")).toHaveAttribute("data-tone", "danger");
+    expect(screen.getByText("Payment Failed")).toHaveAttribute("data-tone", "danger");
   });
 
   it("supports DataTable caption, scoped header cells, sortable headers, and body semantics", async () => {
@@ -347,7 +347,7 @@ describe("Phase 2 shared UI behavior", () => {
 
     render(
       <DataTable>
-        <DataTableCaption>Care queue records</DataTableCaption>
+        <DataTableCaption>Care Queue Records</DataTableCaption>
         <DataTableHeader>
           <DataTableRow>
             <SortableHeader direction="ascending" onSort={onSort}>
@@ -365,7 +365,7 @@ describe("Phase 2 shared UI behavior", () => {
       </DataTable>,
     );
 
-    expect(screen.getByText("Care queue records").tagName).toBe("CAPTION");
+    expect(screen.getByText("Care Queue Records").tagName).toBe("CAPTION");
     expect(screen.getByRole("columnheader", { name: /Request/ })).toHaveAttribute("aria-sort", "ascending");
     expect(screen.getByRole("columnheader", { name: "Owner" })).toHaveAttribute("scope", "col");
 
@@ -385,7 +385,7 @@ describe("Phase 2 shared UI behavior", () => {
             description="Dialog description"
             isOpen={open}
             onClose={() => setOpen(false)}
-            title="Dialog title"
+            title="Dialog Title"
           >
             <Button>First dialog action</Button>
             <Button>Last dialog action</Button>
@@ -398,7 +398,7 @@ describe("Phase 2 shared UI behavior", () => {
     const trigger = screen.getByRole("button", { name: "Open dialog" });
     await user.click(trigger);
 
-    const dialog = screen.getByRole("dialog", { name: "Dialog title" });
+    const dialog = screen.getByRole("dialog", { name: "Dialog Title" });
     expect(dialog).toHaveAccessibleDescription("Dialog description");
     const close = screen.getByRole("button", { name: "Close dialog" });
     const first = screen.getByRole("button", { name: "First dialog action" });
@@ -415,7 +415,7 @@ describe("Phase 2 shared UI behavior", () => {
 
     await user.keyboard("{Escape}");
     await waitFor(() => expect(trigger).toHaveFocus());
-    expect(screen.queryByRole("dialog", { name: "Dialog title" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("dialog", { name: "Dialog Title" })).not.toBeInTheDocument();
     expect(first).not.toBeInTheDocument();
   });
 
@@ -424,14 +424,14 @@ describe("Phase 2 shared UI behavior", () => {
     const onClose = vi.fn();
 
     render(
-      <Dialog isOpen onClose={onClose} preventEscapeClose title="Protected dialog">
+      <Dialog isOpen onClose={onClose} preventEscapeClose title="Protected Dialog">
         <Button>Only action</Button>
       </Dialog>,
     );
 
     await user.keyboard("{Escape}");
     expect(onClose).not.toHaveBeenCalled();
-    expect(screen.getByRole("dialog", { name: "Protected dialog" })).toBeInTheDocument();
+    expect(screen.getByRole("dialog", { name: "Protected Dialog" })).toBeInTheDocument();
   });
 
   it("applies and restores Dialog background isolation", async () => {
@@ -443,7 +443,7 @@ describe("Phase 2 shared UI behavior", () => {
         <>
           <main>Background page content</main>
           <Button onClick={() => setOpen(true)}>Open isolated dialog</Button>
-          <Dialog isOpen={open} onClose={() => setOpen(false)} title="Isolated dialog">
+          <Dialog isOpen={open} onClose={() => setOpen(false)} title="Isolated Dialog">
             <Button onClick={() => setOpen(false)}>Finish</Button>
           </Dialog>
         </>
@@ -514,7 +514,7 @@ describe("Phase 2 shared UI behavior", () => {
         <>
           <main>Background drawer content</main>
           <Button onClick={() => setOpen(true)}>Open isolated drawer</Button>
-          <Drawer isOpen={open} onClose={() => setOpen(false)} title="Isolated drawer">
+          <Drawer isOpen={open} onClose={() => setOpen(false)} title="Isolated Drawer">
             <Button onClick={() => setOpen(false)}>Apply filters</Button>
           </Drawer>
         </>
@@ -651,7 +651,7 @@ describe("Phase 2 shared UI behavior", () => {
         isOpen
         onCancel={onCancel}
         onConfirm={onConfirm}
-        title="Delete account?"
+        title="Delete Account?"
         tone="danger"
       />,
     );
@@ -680,7 +680,7 @@ describe("Phase 2 shared UI behavior", () => {
         loading
         onCancel={onCancel}
         onConfirm={onConfirm}
-        title="Delete account?"
+        title="Delete Account?"
         tone="danger"
       />,
     );
@@ -741,25 +741,25 @@ describe("Phase 2 shared UI behavior", () => {
             id: "submitted",
             state: "complete",
             timestamp: "Jul 1, 2026 at 9:00 AM",
-            title: <span>Caller submitted request</span>,
+            title: <span>Caller Submitted Request</span>,
           },
           {
             description: "Provider review is underway.",
             id: "review",
             state: "current",
             timestamp: "Today",
-            title: "Pending review",
+            title: "Pending Review",
           },
           {
             id: "upcoming",
             state: "upcoming",
-            title: "Payment required",
+            title: "Payment Required",
           },
           {
             description: "Failed states include visible text and do not rely on red alone.",
             id: "failed",
             state: "failed",
-            title: "Payment failed",
+            title: "Payment Failed",
           },
         ]}
       />,
@@ -771,7 +771,7 @@ describe("Phase 2 shared UI behavior", () => {
 
     expect(list.tagName).toBe("OL");
     expect(items).toHaveLength(4);
-    expect(within(items[0]).getByText("Caller submitted request")).toBeVisible();
+    expect(within(items[0]).getByText("Caller Submitted Request")).toBeVisible();
     expect(submittedTime.tagName).toBe("TIME");
     expect(submittedTime).toHaveAttribute("dateTime", "2026-07-01T09:00:00-05:00");
     expect(within(items[0]).getByText(/enough length to verify wrapping/)).toBeVisible();
@@ -800,7 +800,7 @@ describe("Phase 2 shared UI behavior", () => {
       />,
     );
 
-    expect(screen.getByRole("heading", { name: "Patient context" })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Patient Context" })).toBeVisible();
     expect(screen.getByText("Example Person")).toBeVisible();
     expect(container.querySelector(".patient-context img")).toHaveAttribute("alt", "");
     expect(screen.getByText("Secure message available")).toBeVisible();
@@ -851,7 +851,7 @@ describe("Phase 2 shared UI behavior", () => {
           status="submitted"
           submittedDate="Today"
           summary="Lab collection request."
-          title="Submitted lab"
+          title="Submitted Lab"
         />
         <CareRequestCard
           providerReviewState="not-reviewed"
@@ -860,7 +860,7 @@ describe("Phase 2 shared UI behavior", () => {
           status="pending-review"
           submittedDate="Today"
           summary="Lab collection request."
-          title="Pending lab"
+          title="Pending Lab"
         />
         <CareRequestCard
           providerReviewState="reviewed"
@@ -869,15 +869,15 @@ describe("Phase 2 shared UI behavior", () => {
           status="approved"
           submittedDate="Today"
           summary="Provider reviewed lab request."
-          title="Reviewed lab"
+          title="Reviewed Lab"
         />
       </>,
     );
 
     expect(screen.getAllByText("No charge until provider review.")).toHaveLength(2);
-    expect(within(screen.getByText("Submitted lab").closest(".care-request-card") as HTMLElement).getByText("No charge until provider review.")).toBeVisible();
-    expect(within(screen.getByText("Pending lab").closest(".care-request-card") as HTMLElement).getByText("No charge until provider review.")).toBeVisible();
-    expect(within(screen.getByText("Reviewed lab").closest(".care-request-card") as HTMLElement).queryByText("No charge until provider review.")).not.toBeInTheDocument();
+    expect(within(screen.getByText("Submitted Lab").closest(".care-request-card") as HTMLElement).getByText("No charge until provider review.")).toBeVisible();
+    expect(within(screen.getByText("Pending Lab").closest(".care-request-card") as HTMLElement).getByText("No charge until provider review.")).toBeVisible();
+    expect(within(screen.getByText("Reviewed Lab").closest(".care-request-card") as HTMLElement).queryByText("No charge until provider review.")).not.toBeInTheDocument();
     expect(screen.queryByText(/estimated|provisional|price range|\$/i)).not.toBeInTheDocument();
   });
 
@@ -889,11 +889,11 @@ describe("Phase 2 shared UI behavior", () => {
         status="payment-required"
         submittedDate="Today"
         summary="Illustrative request."
-        title="Consultation request"
+        title="Consultation Request"
       />,
     );
 
-    expect(screen.getByText("Payment required")).toHaveAttribute("data-tone", "warning");
+    expect(screen.getByText("Payment Required")).toHaveAttribute("data-tone", "warning");
   });
 
   it("renders FilterBar in drawer layout with usable labels and disabled Clear all behavior", async () => {
@@ -917,7 +917,7 @@ describe("Phase 2 shared UI behavior", () => {
           searchValue={search}
           statusOptions={[
             { label: "All statuses", value: "all" },
-            { label: "Pending review", value: "pending-review" },
+            { label: "Pending Review", value: "pending-review" },
           ]}
           statusValue={status}
         />

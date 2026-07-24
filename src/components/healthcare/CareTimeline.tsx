@@ -24,15 +24,15 @@ const timelineStateLabels: Record<CareTimelineStepState, string> = {
 
 const previewTimelineTitles: Record<CareTimelineVariant, string[]> = {
   laboratory: [
-    "Request submitted",
-    "Provider review",
-    "Invoice issued",
-    "Accepted and paid",
-    "Results released",
+    "Request Submitted",
+    "Provider Review",
+    "Invoice Issued",
+    "Accepted and Paid",
+    "Results Released",
   ],
   standard: [
-    "Request submitted",
-    "Provider review",
+    "Request Submitted",
+    "Provider Review",
     "Payment",
     "Approved",
     "Completed",

@@ -30,7 +30,7 @@ export function Drawer({
 }: DrawerProps) {
   const titleId = useId();
   const descriptionId = description ? `${titleId}-description` : undefined;
-  const containerRef = useFocusTrap<HTMLElement>(isOpen, initialFocusRef);
+  const containerRef = useFocusTrap<HTMLDivElement>(isOpen, initialFocusRef);
   useBodyScrollLock(isOpen);
   useModalIsolation(isOpen);
 
@@ -47,7 +47,7 @@ export function Drawer({
 
   return createPortal(
     <div className="overlay overlay--drawer" data-modal-root="true">
-      <aside
+      <div
         aria-describedby={descriptionId}
         aria-labelledby={titleId}
         aria-modal="true"
@@ -67,7 +67,7 @@ export function Drawer({
           </Button>
         </div>
         <div className="drawer__body">{children}</div>
-      </aside>
+      </div>
     </div>,
     document.body,
   );

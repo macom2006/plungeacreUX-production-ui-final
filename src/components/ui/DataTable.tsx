@@ -151,7 +151,7 @@ export function DefaultTableEmptyState() {
     <EmptyState
       compact
       description="Adjust filters or search terms to find matching records."
-      title="No records found"
+      title="No Records Found"
     />
   );
 }

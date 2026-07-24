@@ -87,7 +87,7 @@ export function PortalShell({
             Menu
           </Button>
           <div>
-            <p className="portal-shell__eyebrow">Foundation preview</p>
+            <p className="portal-shell__eyebrow">Foundation Preview</p>
             <h1>{pageTitle}</h1>
           </div>
           <div className="portal-shell__account" aria-label="Signed in account">
@@ -108,7 +108,7 @@ export function PortalShell({
         isOpen={drawerOpen}
         onClose={() => setDrawerOpen(false)}
         position="left"
-        title="Portal navigation"
+        title="Portal Navigation"
       >
         <PortalNavigation items={resolvedNav} />
       </Drawer>

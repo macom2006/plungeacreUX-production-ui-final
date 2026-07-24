@@ -1,11 +1,13 @@
+export { Accordion } from "./Accordion";
+export type { AccordionItem, AccordionProps } from "./Accordion";
 export { Alert } from "./Alert";
 export type { AlertProps, AlertTone } from "./Alert";
 export { Avatar } from "./Avatar";
 export type { AvatarProps } from "./Avatar";
 export { Breadcrumbs } from "./Breadcrumbs";
 export type { BreadcrumbItem, BreadcrumbsProps } from "./Breadcrumbs";
-export { Button } from "./Button";
-export type { ButtonProps } from "./Button";
+export { Button, LinkButton } from "./Button";
+export type { ButtonProps, LinkButtonProps } from "./Button";
 export { Card } from "./Card";
 export type { CardProps } from "./Card";
 export { Checkbox } from "./Checkbox";
